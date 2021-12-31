@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+html{
+  font-size: 62.5%;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,3 +40,22 @@
     transform: rotate(360deg);
   }
 }
+.header{
+  width: calc(100vw - 25%);
+  min-width: calc(100vw - 20rem);
+  position: absolute;
+  left: 20rem;
+  /* right: 0; */
+}
+/*  */
+/* .sidebar{ */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* position: absolute; */
+  /* left: 0px; */
+  /* width: 30%; */
+  /* min-width: 20rem; */
+  /* height: 100%; */
+  /* background: #1ba785; */
+  /* color: red; */
+/* } */

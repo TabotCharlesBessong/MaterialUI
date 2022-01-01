@@ -3,12 +3,13 @@ import './App.css';
 import Sidebar from './components/Sidebar';
 import { makeStyles } from '@material-ui/styles';
 import Header from './components/Header';
+import { CssBaseline } from '@material-ui/core';
 
 const useStyles = makeStyles({
   app:{
     // padding:'32rem',
     width:'100%',
-    // margin:'10rem'
+    paddingLeft:'32rem'
   }
 })
 
@@ -16,10 +17,12 @@ function App() {
   const classes = useStyles()
   return (
     <>
+    
       <Sidebar/>
       <div className={classes.app}>
         <Header/>
       </div>
+      <CssBaseline/>
     </>
   );
 }

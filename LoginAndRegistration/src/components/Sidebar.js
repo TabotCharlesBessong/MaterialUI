@@ -21,7 +21,7 @@ const Sidebar = () => {
   console.log(classes);
   return (
     <div className={classes.sidebar}>
-      <h2>Sidebar</h2>
+      <h2>Sidebar js</h2>
     </div>
   )
 }

@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme =>({
     height:'100%',
     fontSize:'2rem',
     letterSpacing:'0.1rem',
+    textTransform:'capitalize',
     '&:hover':{
       background:'#222',
       color:'#fff'

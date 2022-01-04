@@ -14,6 +14,14 @@ const useStyles = makeStyles((theme)=>({
   },
   main:{
     // marginTop:'5rem',
+  },
+  app:{
+    height:'100vh',
+  },
+  right:{
+    [theme.breakpoints.down("sm")]:{
+      display:"none",
+    }
   }
 }))
 
@@ -21,7 +29,7 @@ function App() {
   const classes = useStyles()
   return (
     <>
-      <div className="">
+      <div className={classes.app}>
         {/* <h1>Hello my world</h1> */}
         <div>
           <Navbar/>
@@ -29,13 +37,13 @@ function App() {
         </div>
         <div className={classes.main}>
           <Grid container>
-            <Grid item sm={2}>
+            <Grid item sm={2} xs={2}>
               <Leftbar/>
             </Grid>
-            <Grid item sm={7}>
+            <Grid item sm={7} xs={10}>
               <Feed/>
             </Grid>
-            <Grid item sm={3}>
+            <Grid item sm={3} xs={0} className={classes.right}>
               <Sidebar/>
             </Grid>
           </Grid>

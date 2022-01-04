@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { alpha, AppBar, Avatar, Badge, InputBase, makeStyles, Toolbar, Typography } from '@material-ui/core'
-import { Mail, Search ,Notifications} from '@material-ui/icons'
+import { Mail, Search ,Notifications, Cancel} from '@material-ui/icons'
 
 
 const useStyles  = makeStyles((theme)=>({
@@ -11,7 +11,7 @@ const useStyles  = makeStyles((theme)=>({
     // }
   },
   input:{
-    display:'none',
+    // display:'none',
     // [theme.breakpoints.up("sm")]:{
       // display:'block'
     // }
@@ -40,6 +40,12 @@ const useStyles  = makeStyles((theme)=>({
       background:alpha(theme.palette.common.white,0.28)
     }
   },
+  cancel:{
+    color:'#bc3412',
+    [theme.breakpoints.up("sm")]:{
+      display:'none',
+    }
+  },
   searchIcon:{
     marginRight:'1.25rem',
     color:theme.palette.primary.main,
@@ -50,12 +56,13 @@ const useStyles  = makeStyles((theme)=>({
     color:'#fff',
     fontSize:'2rem',
     // display:'block',
+    // display:'block',
     marginRight:theme.spacing(2),
     [theme.breakpoints.up("sm")]:{
       display:'none',
     }, 
     // [theme.breakpoints.up("sm")]:{
-      display:(props)=>props.open ? "none":"flex" ,
+      // display:(props)=>props.open ? "none":"flex" ,
       // width:'10%',
     // },
   },
@@ -65,7 +72,8 @@ const useStyles  = makeStyles((theme)=>({
     justifyContent:'space-evenly',
   },
   badge:{
-    marginRight:theme.spacing(2)
+    marginRight:theme.spacing(2),
+    display:(props)=>props.open ? "none":"flex" ,
   }
 }))
 
@@ -73,7 +81,7 @@ const Navbar = () => {
   const [open,setOpen] = useState(false)
   const classes  = useStyles({open})
   return (
-    <AppBar>
+    <AppBar position='static'>
       <Toolbar className={classes.toolbar}>
         <Typography variant='h6'className={classes.logoLg} >
           Mr Nerus
@@ -84,6 +92,10 @@ const Navbar = () => {
         <div className={classes.search}>
           <Search className={classes.searchIcon}/>
           <InputBase className={classes.input} placeholder='Search for ...' />
+          <Cancel
+            onClick={()=> setOpen(false)}
+            className={classes.cancel}
+          />
         </div>
         <div className={classes.icons}>
         <Search className={classes.searchIcon1} 
@@ -92,7 +104,7 @@ const Navbar = () => {
           <Badge badgeContent={4} color="secondary" className={classes.badge} >
            <Mail />
           </Badge>
-          <Badge badgeContent={13} color="primary" className={classes.badge} >
+          <Badge badgeContent={13} color="success" className={classes.badge} >
            <Notifications />
           </Badge>
           <Avatar alt="Indian Actress" src='images/avulionAgents (6).jpg'></Avatar>

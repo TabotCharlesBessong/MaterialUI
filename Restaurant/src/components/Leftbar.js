@@ -7,13 +7,17 @@ const useStyles  = makeStyles((theme)=>({
    container:{
      height:'100vh',
      paddingTop:'2.5rem',
+     position:"sticky",
+     top:0,
      background:theme.palette.primary.main ,
      [theme.breakpoints.up("sm")]:{
       // marginBottom:theme.spacing(2.5),
       // cursor:'pointer',
       background:'#222',
       color:'#fff',
-      boder:'1px solid #fff'
+      border:'2px solid #fff',
+      
+      
      },
    },
    item:{

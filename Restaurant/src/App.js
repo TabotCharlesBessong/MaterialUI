@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme)=>({
   },
   app:{
     height:'100vh',
+    overflow:'scroll',
   },
   right:{
     [theme.breakpoints.down("sm")]:{

@@ -1,4 +1,9 @@
 
 .home{
-  background: orange;
+  // background: orange;
+  display: flex;
+  .homeContainer{
+    // background: lightblue;
+    flex:6;
+  }
 }

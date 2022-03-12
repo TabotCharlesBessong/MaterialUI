@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar/>
+        {/* <Navbar/> */}
         <Routes>
           <Route path='/'>
             <Route index element={<Home/>} />
@@ -29,7 +29,7 @@ function App() {
             </Route>
           </Route>
         </Routes>
-        <Sidebar/>
+        {/* <Sidebar/> */}
       </Router>
     </div>
   );

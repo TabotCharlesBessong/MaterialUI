@@ -7,6 +7,7 @@ import Single from './pages/single/Single';
 import New from './pages/new/New';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
+import {userInputs , productInputs} from './formSource'
 
 function App() {
   return (
@@ -20,12 +21,12 @@ function App() {
             <Route path='users'>
               <Route index element={<List/>} />
               <Route path=':userId' element={<Single/>} />
-              <Route path='new' element={<New/>} />
+              <Route path='new' element={<New inputs={userInputs} title='Add a new user' />} />
             </Route>
             <Route path='products'>
               <Route index element={<List/>} />
               <Route path=':productId' element={<Single/>} />
-              <Route path='new' element={<New/>} />
+              <Route path='new' element={<New inputs={productInputs} title='Add a new products' />} />
             </Route>
           </Route>
         </Routes>

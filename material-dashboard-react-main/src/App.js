@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
@@ -43,8 +43,8 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
-// Material Dashboard 2 React routes
-import routes from "routes";
+// Material Dashboard 2 React Switch
+import Switch from "Switch";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -109,10 +109,10 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
-  const getRoutes = (allRoutes) =>
-    allRoutes.map((route) => {
+  const getSwitch = (allSwitch) =>
+    allSwitch.map((route) => {
       if (route.collapse) {
-        return getRoutes(route.collapse);
+        return getSwitch(route.collapse);
       }
 
       if (route.route) {
@@ -156,7 +156,7 @@ export default function App() {
               color={sidenavColor}
               brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
               brandName="Material Dashboard 2"
-              routes={routes}
+              Switch={Switch}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
@@ -165,10 +165,10 @@ export default function App() {
           </>
         )}
         {layout === "vr" && <Configurator />}
-        <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-        </Routes>
+        <Switch>
+          {getSwitch(Switch)}
+          <Route path="*" element={<Redirect to="/dashboard" />} />
+        </Switch>
       </ThemeProvider>
     </CacheProvider>
   ) : (
@@ -180,7 +180,7 @@ export default function App() {
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
             brandName="Material Dashboard 2"
-            routes={routes}
+            Switch={Switch}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
@@ -189,10 +189,10 @@ export default function App() {
         </>
       )}
       {layout === "vr" && <Configurator />}
-      <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
+      <Switch>
+        {getSwitch(Switch)}
+        <Route path="*" element={<Redirect to="/dashboard" />} />
+      </Switch>
     </ThemeProvider>
   );
 }

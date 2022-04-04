@@ -1,37 +1,24 @@
 import './App.css';
-import Home from './pages/home/Home';
-import {BrowserRouter as Router , Routes , Route} from 'react-router-dom'
-import Login from './pages/login/Login';
-import List from './pages/list/List';
-import Single from './pages/single/Single';
-import New from './pages/new/New';
-import Navbar from './components/navbar/Navbar';
-import Sidebar from './components/sidebar/Sidebar';
-import {userInputs , productInputs} from './formSource'
+import Navbar from './components/Navbar/Navbar';
+import {CssBaseline, Grid } from '@material-ui/core'
+import List from './components/list/List';
+import Map from './components/map/Map';
+
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        {/* <Navbar/> */}
-        <Routes>
-          <Route path='/'>
-            <Route index element={<Home/>} />
-            <Route path='login' element={<Login/>} />
-            <Route path='users'>
-              <Route index element={<List/>} />
-              <Route path=':userId' element={<Single/>} />
-              <Route path='new' element={<New inputs={userInputs} title='Add a new user' />} />
-            </Route>
-            <Route path='products'>
-              <Route index element={<List/>} />
-              <Route path=':productId' element={<Single/>} />
-              <Route path='new' element={<New inputs={productInputs} title='Add a new products' />} />
-            </Route>
-          </Route>
-        </Routes>
-        {/* <Sidebar/> */}
-      </Router>
+    hello
+      <CssBaseline/>
+      {/* <Navbar/> */}
+      <Grid container spacing={3} style={{width:'100%'}} >
+        <Grid item xs={12} md={4}  >
+          <List/>
+        </Grid>
+        <Grid item xs={12} md={8}  >
+          <Map/>
+        </Grid>
+      </Grid>
     </div>
   );
 }

@@ -1,9 +1,29 @@
 
 import React from 'react'
+import GoogleMapReact  from 'google-map-react'
+import { Rating } from '@material-ui/lab'
+import useStyles from './Styles.js'
+import { useMediaQuery } from '@mui/material'
 
 const Map = () => {
+  const classes = useStyles()
+  const isMobile = useMediaQuery('(min-width:600px)')
+  const coordinate = {lat:0,lng:0}
   return (
-    <div>Map</div>
+    <div className={classes.mapContainer} >
+      <GoogleMapReact
+      bootstrapURLKeys = {{key:''}}
+      defaultCenter={coordinate}
+      center = {coordinate}
+      defaultZoom = {16}
+      margin={[50,50,50,50]}
+      options= {''}
+      onChnage= {''}
+      onChildClick = {''}
+      >
+
+      </GoogleMapReact>
+    </div>
   )
 }
 

@@ -19,14 +19,14 @@ const Navbar = ({ onPlaceChanged, onLoad }) => {
           <Typography variant="h6" className={classes.title}>
             Explore new places
           </Typography>
-          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+          {/* <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}> */}
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <Search />
               </div>
               <InputBase placeholder="Search…" classes={{ root: classes.inputRoot, input: classes.inputInput }} />
             </div>
-          </Autocomplete>
+          {/* </Autocomplete> */}
         </Box>
       </Toolbar>
     </AppBar>

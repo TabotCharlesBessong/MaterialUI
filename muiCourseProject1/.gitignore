@@ -4,9 +4,13 @@
 /node_modules
 /.pnp
 .pnp.js
-/src/images 
-/src/images
-/src/images
+# /src/images 
+# /src/images
+# /src/images
+*.jpg
+*.png
+*.svg
+
 
 
 # testing

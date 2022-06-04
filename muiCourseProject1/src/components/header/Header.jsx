@@ -30,6 +30,7 @@ const Header = (props) => {
   const [value,setValue] = useState(0)
   const [anchorEl,setAnchorEl] = useState(null)
   const [open,setOpen] = useState(false)
+  const [selectedIndex,setSelectedIndex] = useState(0)
 
   const handleChange = (e,value)=>{
     setValue(value)
@@ -40,10 +41,35 @@ const Header = (props) => {
     setOpen(true)
   }
 
+  const handleMenuItemClick = (e,i)=>{
+    setAnchorEl(null)
+    setOpen(false)
+    setSelectedIndex(i)
+  }
+
   const handleClose = (e) => {
     setAnchorEl(null)
     setOpen(false)
   }
+
+  const menuOptions = [
+    {
+    name:"Services",
+    link:"/services"
+  },
+  {
+    name:"Custom Software Developement",
+    link:"/customsoftware"
+  },
+  {
+    name:"Mobile App Development",
+    link:"/mobileapps"
+  },
+  {
+    name:"Website Developement",
+    link:"/websites"
+  },
+]
 
   useEffect(()=>{
     if(window.location.pathname === "/" && value !== 0 ){
@@ -88,10 +114,13 @@ const Header = (props) => {
             <Menu id="simple-menu" anchorEl={anchorEl} open={open} onClick={handleClose} MenuListProps={{onMouseLeave:handleClose}}
               classes={{paper:classes.menu}} elevation={0}
               >
-              <MenuItem classes={{root:classes.menuItem}} onClick={handleClose}> Services </MenuItem>
-              <MenuItem classes={{root:classes.menuItem}} onClick={handleClose}> Custom software development </MenuItem>
-              <MenuItem classes={{root:classes.menuItem}} onClick={handleClose}> Mobile App Development </MenuItem>
-              <MenuItem classes={{root:classes.menuItem}} onClick={handleClose}> Web App Development </MenuItem>
+              {
+                menuOptions.map((opt,idx)=> (
+                  <MenuItem key={opt} classes={{root:classes.menuItem}} component={Link} to={opt.link} onClick={(event)=> {handleMenuItemClick(event,idx); setValue(1) ; handleClose() }   }  selected={idx === selectedIndex  } >
+                   {opt.name}
+                  </MenuItem>
+                  )  )
+              }
             </Menu>
             
           </Toolbar>

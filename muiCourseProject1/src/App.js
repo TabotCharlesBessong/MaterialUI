@@ -16,6 +16,9 @@ const App = () => {
           <Route exact path='/about' component={()=> <div>About Us</div> }  />
           <Route exact path='/contact' component={()=> <div>Contact Us </div> }  />
           <Route exact path='/estimate' component={()=> <div>Free Estimate </div> }  />
+          <Route exact path='/customsoftware' component={()=> <div>Custome software services </div> }  />
+          <Route exact path='/mobileapps' component={()=> <div>Mobile App Developement </div> }  />
+          <Route exact path='/websites' component={()=> <div>Website Developement </div> }  />
         </Switch>
       </BrowserRouter>
     </ThemeProvider>      

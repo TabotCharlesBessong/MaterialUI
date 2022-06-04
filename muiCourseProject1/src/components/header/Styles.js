@@ -47,5 +47,17 @@ export default   makeStyles ((theme)=>({
       position:'absolute',
       right:'0.75rem'
     }
+  },
+  menu:{
+    backgroundColor:theme.palette.common.blue,
+    color:'#fff',
+    borderRadius:"0px"
+  },
+  menuItem:{
+    ...theme.typography.tab,
+    opacity:0.7,
+    "&:hover":{
+      opacity:1
+    }
   }
 }))

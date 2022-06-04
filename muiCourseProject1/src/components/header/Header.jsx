@@ -85,10 +85,13 @@ const Header = (props) => {
               Free Estimate
             </Button>
             {/* </Link> */}
-            <Menu id="simple-menu" anchorEl={anchorEl} open={open} onClick={handleClose} MenuListProps={{onMouseLeave:handleClose}}  >
-              <MenuItem onClick={handleClose}> Custom software development </MenuItem>
-              <MenuItem onClick={handleClose}> Mobile App Development </MenuItem>
-              <MenuItem onClick={handleClose}> Web App Development </MenuItem>
+            <Menu id="simple-menu" anchorEl={anchorEl} open={open} onClick={handleClose} MenuListProps={{onMouseLeave:handleClose}}
+              classes={{paper:classes.menu}} elevation={0}
+              >
+              <MenuItem classes={{root:classes.menuItem}} onClick={handleClose}> Services </MenuItem>
+              <MenuItem classes={{root:classes.menuItem}} onClick={handleClose}> Custom software development </MenuItem>
+              <MenuItem classes={{root:classes.menuItem}} onClick={handleClose}> Mobile App Development </MenuItem>
+              <MenuItem classes={{root:classes.menuItem}} onClick={handleClose}> Web App Development </MenuItem>
             </Menu>
             
           </Toolbar>

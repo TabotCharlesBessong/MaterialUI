@@ -62,5 +62,20 @@ export default   makeStyles ((theme)=>({
     "&:hover":{
       opacity:1
     }
+  },
+  drawerIconContainer:{
+    marginLeft:"auto",
+    "&:hover":{
+      backgroundColor:'transparent'
+    }
+  },
+  drawerIcon:{
+    height:'50px',
+    width:"50px",
+    [theme.breakpoints.up("md")]:{
+      display:"none",
+    }
   }
 }))
+
+

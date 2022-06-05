@@ -1,8 +1,10 @@
 
 import React, { useEffect, useState } from 'react'
-import {AppBar , Toolbar , useScrollTrigger , Tabs , Tab , Button , Menu , MenuItem , useMediaQuery   } from '@material-ui/core'
+import {AppBar , Toolbar , useScrollTrigger , Tabs , Tab , Button , Menu , MenuItem , useMediaQuery ,SwipeableDrawer , IconButton } from '@material-ui/core'
+// import {Menu} from '@material-ui/icons'
+import MenuIcon from '@material-ui/icons/Menu'
 import {useTheme} from '@material-ui/core/styles'
- import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import useStyles from './Styles.js'
 
@@ -32,27 +34,31 @@ const Header = (props) => {
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const [value,setValue] = useState(0)
   const [anchorEl,setAnchorEl] = useState(null)
-  const [open,setOpen] = useState(false)
+  const [openMenu,setOpenMenu] = useState(false)
+  const [openDrawer,setOpenDrawer] = useState(false)
   const [selectedIndex,setSelectedIndex] = useState(0)
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-  const handleChange = (e,value)=>{
-    setValue(value)
+  
+
+  const handleChange = (e,newValue)=>{
+    setValue(newValue)
   }
 
   const handleClick = (e)=>{
     setAnchorEl(e.currentTarget)
-    setOpen(true)
+    setOpenMenu(true)
   }
 
   const handleMenuItemClick = (e,i)=>{
     setAnchorEl(null)
-    setOpen(false)
+    setOpenMenu(false)
     setSelectedIndex(i)
   }
 
   const handleClose = (e) => {
     setAnchorEl(null)
-    setOpen(false)
+    setOpenMenu(false)
   }
 
   const menuOptions = [
@@ -150,7 +156,7 @@ const Header = (props) => {
               Free Estimate
       </Button>
             {/* </Link> */}
-      <Menu id="simple-menu" anchorEl={anchorEl} open={open} onClick={handleClose} MenuListProps={{onMouseLeave:handleClose}}
+      <Menu id="simple-menu" anchorEl={anchorEl} open={openMenu} onClick={handleClose} MenuListProps={{onMouseLeave:handleClose}}
               classes={{paper:classes.menu}} elevation={0}
               >
       {
@@ -163,6 +169,17 @@ const Header = (props) => {
     </Menu>
     </>
   )
+
+  const drawer = (
+    <>
+      <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} open={openDrawer} onClose={()=> setOpenDrawer(false)} onOpen={()=> setOpenDrawer(true)} >
+        hello world
+      </SwipeableDrawer>
+      <IconButton className={classes.drawerIconContainer} onClick={()=>setOpenDrawer(!openDrawer)} disableRipple >
+        <MenuIcon className={classes.drawerIcon}  />
+      </IconButton>
+    </>
+  )
   return (
     <>
       <ElevationScroll>
@@ -171,7 +188,7 @@ const Header = (props) => {
             <Link to="/" onClick={()=> setValue(0)} >
               <img  className={classes.logo} src={logo} alt={logo} />
             </Link>
-          {matches ? null : tabs }  
+          {matches ? drawer : tabs }  
           </Toolbar>
         </AppBar>
       </ElevationScroll>

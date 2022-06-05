@@ -1,7 +1,8 @@
 
 import React, { useEffect, useState } from 'react'
-import {AppBar , Toolbar , useScrollTrigger , Tabs , Tab , Button , Menu , MenuItem } from '@material-ui/core'
-import {Link} from 'react-router-dom'
+import {AppBar , Toolbar , useScrollTrigger , Tabs , Tab , Button , Menu , MenuItem , useMediaQuery   } from '@material-ui/core'
+import {useTheme} from '@material-ui/core/styles'
+ import {Link} from 'react-router-dom'
 
 import useStyles from './Styles.js'
 
@@ -27,6 +28,8 @@ const  ElevationScroll = (props)=> {
 
 const Header = (props) => {
   const classes = useStyles()
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const [value,setValue] = useState(0)
   const [anchorEl,setAnchorEl] = useState(null)
   const [open,setOpen] = useState(false)
@@ -131,6 +134,35 @@ const Header = (props) => {
         break
     }
   },[value])
+
+  const tabs = (
+    <>
+      <Tabs onChange={handleChange} value={value} className={classes.tabContainer}  >
+        <Tab  className={classes.tab} component={Link} to="/" label="Home" />
+        <Tab aria-owns={anchorEl ? "simple-menu" : undefined } aria-haspopup = {anchorEl ? "true" : undefined }  className={classes.tab} component={Link} to="/services" onMouseOver ={(e)=> handleClick(e)} label="Services" />
+        <Tab className={classes.tab} component={Link} to="/revolution"  label="The Revolution" />
+              
+        <Tab className={classes.tab} component={Link} to="/about" label="About Us" />
+        <Tab className={classes.tab} component={Link} to="/contact" label="Contact Us" />
+      </Tabs>
+            {/* <Link to="/estimate"> */}
+        <Button className={classes.button} variant="contained" color="secondary" component={Link} to="/estimate"  >
+              Free Estimate
+      </Button>
+            {/* </Link> */}
+      <Menu id="simple-menu" anchorEl={anchorEl} open={open} onClick={handleClose} MenuListProps={{onMouseLeave:handleClose}}
+              classes={{paper:classes.menu}} elevation={0}
+              >
+      {
+        menuOptions.map((opt,idx)=> (
+        <MenuItem key={opt} classes={{root:classes.menuItem}} component={Link} to={opt.link} onClick={(event)=> {handleMenuItemClick(event,idx); setValue(1) ; handleClose() }   }  selected={idx === selectedIndex  } >
+                   {opt.name}
+        </MenuItem>
+                  )  )
+      }
+    </Menu>
+    </>
+  )
   return (
     <>
       <ElevationScroll>
@@ -139,32 +171,7 @@ const Header = (props) => {
             <Link to="/" onClick={()=> setValue(0)} >
               <img  className={classes.logo} src={logo} alt={logo} />
             </Link>
-            
-            <Tabs onChange={handleChange} value={value} className={classes.tabContainer}  >
-              <Tab  className={classes.tab} component={Link} to="/" label="Home" />
-              <Tab aria-owns={anchorEl ? "simple-menu" : undefined } aria-haspopup = {anchorEl ? "true" : undefined }  className={classes.tab} component={Link} to="/services" onMouseOver ={(e)=> handleClick(e)} label="Services" />
-              <Tab className={classes.tab} component={Link} to="/revolution"  label="The Revolution" />
-              
-              <Tab className={classes.tab} component={Link} to="/about" label="About Us" />
-              <Tab className={classes.tab} component={Link} to="/contact" label="Contact Us" />
-            </Tabs>
-            {/* <Link to="/estimate"> */}
-              <Button className={classes.button} variant="contained" color="secondary" component={Link} to="/estimate"  >
-              Free Estimate
-            </Button>
-            {/* </Link> */}
-            <Menu id="simple-menu" anchorEl={anchorEl} open={open} onClick={handleClose} MenuListProps={{onMouseLeave:handleClose}}
-              classes={{paper:classes.menu}} elevation={0}
-              >
-              {
-                menuOptions.map((opt,idx)=> (
-                  <MenuItem key={opt} classes={{root:classes.menuItem}} component={Link} to={opt.link} onClick={(event)=> {handleMenuItemClick(event,idx); setValue(1) ; handleClose() }   }  selected={idx === selectedIndex  } >
-                   {opt.name}
-                  </MenuItem>
-                  )  )
-              }
-            </Menu>
-            
+          {matches ? null : tabs }  
           </Toolbar>
         </AppBar>
       </ElevationScroll>

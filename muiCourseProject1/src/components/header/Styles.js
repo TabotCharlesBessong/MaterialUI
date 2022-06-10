@@ -75,6 +75,23 @@ export default   makeStyles ((theme)=>({
     [theme.breakpoints.up("md")]:{
       display:"none",
     }
+  },
+  list:{
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center',
+    justifyContent:'space-between'
+  },
+  drawer:{
+    background:theme.palette.common.blue
+  },
+  drawerItem:{
+    ...theme.typography.tabs,
+    color:'#fff'
+  },
+  drawerItemEstimate:{
+    background:theme.palette.common.orange,
+    borderRadius:'1rem'
   }
 }))
 

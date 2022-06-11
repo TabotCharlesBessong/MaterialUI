@@ -133,19 +133,17 @@ const routes = [
             {/* </Link> */}
       <Menu id="simple-menu" anchorEl={anchorEl} open={openMenu} onClick={handleClose} MenuListProps={{onMouseLeave:handleClose}} style={{zIndex:1302}}
               classes={{paper:classes.menu}} elevation={0}
-              keepMounted
-              >
+              keepMounted>
       {
         menuOptions.map((opt,idx)=> (
 
         <MenuItem key={`${opt}${idx}`} classes={{root:classes.menuItem}} component={Link} to={opt.link} onClick={(event)=> {handleMenuItemClick(event,idx); setValue(1) ; handleClose() }   }  selected={idx === selectedIndex  } >
 
-        <MenuItem key={`${opt}${i}`} classes={{root:classes.menuItem}} component={Link} to={opt.link} onClick={(event)=> {handleMenuItemClick(event,idx); setValue(1) ; handleClose() }   }  selected={idx === selectedIndex  } >
+        
 
-                   {opt.name}
+  {opt.name}
         </MenuItem>
-                  )  )
-      }
+                  )  )}
     </Menu>
     </>
   )

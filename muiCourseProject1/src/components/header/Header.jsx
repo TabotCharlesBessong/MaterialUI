@@ -104,7 +104,11 @@ const routes = [
           if(value !== route.activeIndex){
             setValue(route.activeIndex)
             if(route.selectedIndex && route.selectedIndex !== selectedIndex){
+
               setSelectedIndex(route.selectedIndex)
+
+              selectedIndex(route.selectedIndex)
+
             }
           }
           break
@@ -133,7 +137,11 @@ const routes = [
               >
       {
         menuOptions.map((opt,idx)=> (
+
         <MenuItem key={`${opt}${idx}`} classes={{root:classes.menuItem}} component={Link} to={opt.link} onClick={(event)=> {handleMenuItemClick(event,idx); setValue(1) ; handleClose() }   }  selected={idx === selectedIndex  } >
+
+        <MenuItem key={`${opt}${i}`} classes={{root:classes.menuItem}} component={Link} to={opt.link} onClick={(event)=> {handleMenuItemClick(event,idx); setValue(1) ; handleClose() }   }  selected={idx === selectedIndex  } >
+
                    {opt.name}
         </MenuItem>
                   )  )

@@ -32,17 +32,15 @@ const Header = (props) => {
   const classes = useStyles()
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
-  const [value,setValue] = useState(0)
   const [anchorEl,setAnchorEl] = useState(null)
   const [openMenu,setOpenMenu] = useState(false)
   const [openDrawer,setOpenDrawer] = useState(false)
-  const [selectedIndex,setSelectedIndex] = useState(0)
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   
 
   const handleChange = (e,newValue)=>{
-    setValue(newValue)
+    props.setValue(newValue)
   }
 
   const handleClick = (e)=>{
@@ -53,7 +51,7 @@ const Header = (props) => {
   const handleMenuItemClick = (e,i)=>{
     setAnchorEl(null)
     setOpenMenu(false)
-    setSelectedIndex(i)
+    props.setSelectedIndex(i)
   }
 
   const handleClose = (e) => {
@@ -101,13 +99,13 @@ const routes = [
     [...menuOptions,...routes].forEach(route => {
       switch(window.location.pathname){
         case `${route.link}`:
-          if(value !== route.activeIndex){
-            setValue(route.activeIndex)
-            if(route.selectedIndex && route.selectedIndex !== selectedIndex){
+          if(props.value !== route.activeIndex){
+            props.setValue(route.activeIndex)
+            if(route.selectedIndex && route.selectedIndex !== props.selectedIndex){
 
-              setSelectedIndex(route.selectedIndex)
+              props.setSelectedIndex(route.selectedIndex)
 
-              selectedIndex(route.selectedIndex)
+              // props.selectedIndex(route.selectedIndex)
 
             }
           }
@@ -116,11 +114,11 @@ const routes = [
           break 
       }
     } )
-  },[value,menuOptions,selectedIndex,routes])
+  },[props.value,menuOptions,props.selectedIndex,routes,props])
 
   const tabs = (
     <>
-      <Tabs onChange={handleChange} value={value} className={classes.tabContainer}  >
+      <Tabs onChange={handleChange} value={props.value} className={classes.tabContainer}  >
         
         {routes.map((route,index)=> (
           <Tab key={`${route}${index}`} className={classes.tab} component={Link} to={route.link} label={route.name} aria-owns={route.ariaOwns} aria-haspopup={route.ariaPopup} onMouseOver={route.mouseOver} />
@@ -137,7 +135,7 @@ const routes = [
       {
         menuOptions.map((opt,idx)=> (
 
-        <MenuItem key={`${opt}${idx}`} classes={{root:classes.menuItem}} component={Link} to={opt.link} onClick={(event)=> {handleMenuItemClick(event,idx); setValue(1) ; handleClose() }   }  selected={idx === selectedIndex  } >
+        <MenuItem key={`${opt}${idx}`} classes={{root:classes.menuItem}} component={Link} to={opt.link} onClick={(event)=> {handleMenuItemClick(event,idx); props.setValue(1) ; handleClose() }   }  selected={idx === props.selectedIndex  } >
 
         
 
@@ -154,13 +152,13 @@ const routes = [
       <div className={classes.toolbarMargin} />
         <List disablePadding className={classes.list} >
         {routes.map((route,index)=>(
-          <ListItem key={`${route}${route.activeIndex}`} onClick={()=> {setOpenDrawer(false) ; setValue(route.activeIndex) }} selected={value === route.selectedIndex  } classes={{selected:classes.selectedIndex}} devider button component={Link}  >
+          <ListItem key={`${route}${route.activeIndex}`} onClick={()=> {setOpenDrawer(false) ; props.setValue(route.activeIndex) }} selected={props.ElevationScrollvalue === route.selectedIndex  } classes={{selected:classes.selectedIndex}} devider button component={Link}  >
             <ListItemText disableTypography classes={{root:classes.drawerItem}} > {route.name} </ListItemText>
           </ListItem>
         ))}
         
-          <ListItem className={classes.drawerItemEstimate}   onClick={()=> {setOpenDrawer(false) ; setValue(5) }}divider button disableTypography  component={Link} to="/estimate" selected={value === 5}  >
-             <ListItemText className={value === 5 ? [classes.drawerItem , classes.drawerItemSelected] :  classes.drawerItem}    >Free Estimate</ListItemText>
+          <ListItem className={classes.drawerItemEstimate}   onClick={()=> {setOpenDrawer(false) ; props.setValue(5) }}divider button disableTypography  component={Link} to="/estimate" selected={props.value === 5}  >
+             <ListItemText className={props.value === 5 ? [classes.drawerItem , classes.drawerItemSelected] :  classes.drawerItem}    >Free Estimate</ListItemText>
           </ListItem>
         </List>
       </SwipeableDrawer>
@@ -174,7 +172,7 @@ const routes = [
       <ElevationScroll>
         <AppBar className={classes.appbar} position='fixed' color='primary' >
           <Toolbar disableGutters={true} className={classes.toolbar} >
-            <Link to="/" onClick={()=> setValue(0)} >
+            <Link to="/" onClick={()=> props.setValue(0)} >
               <img  className={classes.logo} src={logo} alt={logo} />
             </Link>
           {matches ? drawer : tabs }  

@@ -95,7 +95,13 @@ export default   makeStyles ((theme)=>({
     borderRadius:'1rem'
   },
   drawerItemSelected:{
-    opacity:1
+    // opacity:1,
+    "& .MuiListItemText-root":{
+      opacity:1
+    }
+  },
+  appbar:{
+    zIndex:theme.zIndex.modal + 1
   }
 }))
 

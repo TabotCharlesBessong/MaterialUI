@@ -87,11 +87,15 @@ export default   makeStyles ((theme)=>({
   },
   drawerItem:{
     ...theme.typography.tabs,
-    color:'#fff'
+    color:'#fff',
+    opacity:0.7
   },
   drawerItemEstimate:{
     background:theme.palette.common.orange,
     borderRadius:'1rem'
+  },
+  drawerItemSelected:{
+    opacity:1
   }
 }))
 

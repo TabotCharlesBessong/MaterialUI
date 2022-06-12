@@ -2,5 +2,54 @@
 import { makeStyles } from "@material-ui/core";
 
 export default makeStyles((theme)=>({
-
+  animation:{
+    maxWidth:'50em',
+    minWidth:'21em',
+    marginTop:'2em',
+    marginLeft:'10%',
+    [theme.breakpoints.down('sm')]:{
+      maxWidth:'30em'
+    }
+  },
+  estimateButton:{
+    ...theme.typography.estimate,
+    background:theme.palette.common.orange,
+    borderRadius:50,
+    height:45,
+    width:145,
+    marginRight:'40px',
+    textTransform:'capitalize',
+    '&:hover':{
+      backgroundColor:theme.palette.secondary.light
+    }
+  },
+  buttonContainer:{
+    marginTop:'1em'
+  },
+  learnButtonHero:{
+    borderColor:theme.palette.common.blue,
+    borderWidth:2,
+    textTransform:'capitalize',
+    borderRadius:50,
+    fontFamily:'Roboto',
+    fontWeight:'bold',
+    fontSize:'1em',
+    color:theme.palette.common.blue
+  },
+  mainContainer:{
+    marginTop:'5em',
+    [theme.breakpoints.down('md')]:{
+      marginTop:'3em'
+    },
+    [theme.breakpoints.down('xs')]:{
+      marginTop:'2em'
+    }
+  },
+  heroTextContainer:{
+    minWidth:'21.5em',
+    marginLeft:'1em',
+    [theme.breakpoints.down('xs')]:{
+      marginLeft:0
+    }
+  }
 }))

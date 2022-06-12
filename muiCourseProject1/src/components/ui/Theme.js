@@ -52,11 +52,11 @@ export default createTheme({
       fontWeight: 700,
       textTransform:'capitalize'
     },
-    // h6: {
-    //   fontWeight: 500,
-    //   fontFamily: "Raleway",
-    //   color: arcBlue
-    // },
+    h6: {
+      fontWeight: 500,
+      fontFamily: "Raleway",
+      color: arcBlue
+    },
     subtitle1: {
       fontSize: "1.25rem",
       fontWeight: 300,

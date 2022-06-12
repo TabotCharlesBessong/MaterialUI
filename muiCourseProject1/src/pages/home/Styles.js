@@ -27,14 +27,16 @@ export default makeStyles((theme)=>({
     marginTop:'1em'
   },
   learnButtonHero:{
-    borderColor:theme.palette.common.blue,
-    borderWidth:2,
-    textTransform:'capitalize',
-    borderRadius:50,
-    fontFamily:'Roboto',
-    fontWeight:'bold',
+    ...theme.typography.learnButton,
     fontSize:'1em',
-    color:theme.palette.common.blue
+    width:145,
+    height:45 
+  },
+  learnButton:{
+    ...theme.typography.learnButton,
+    fontSize:'0.7rem',
+    height:35 ,
+    padding:5 
   },
   mainContainer:{
     marginTop:'5em',
@@ -51,5 +53,21 @@ export default makeStyles((theme)=>({
     [theme.breakpoints.down('xs')]:{
       marginLeft:0
     }
+  },
+  specialText:{
+    fontFamily:'Pacifico',
+    color:theme.palette.common.orange
+  },
+  subtitle:{
+    marginBottom:'1em'
+  },
+  icon:{
+    marginLeft:'2em',
+    [theme.breakpoints.down('xs')]:{
+      marginLeft:0
+    }
+  },
+  serviceContainer:{
+    marginTop:'12em'
   }
 }))

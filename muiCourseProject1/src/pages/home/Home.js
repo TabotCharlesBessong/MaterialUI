@@ -6,7 +6,7 @@ import animationData from '../../animations/landinganimation/data'
 import customSoftwareIcon from '../../assets/Custom Software Icon.svg'
 import MobileIcon from '../../assets/mobileIcon.svg'
 import websiteIcon from '../../assets/websiteIcon.svg'
-import {Grid, Button , Typography, useMediaQuery} from '@material-ui/core'
+import {Grid, Button , Typography, useMediaQuery , Card ,CardContent , CardMedia,CardActionArea,CardActions} from '@material-ui/core'
 import ButtonArrow from '../../components/ui/ButtonArrow'
 import Theme from '../../components/ui/Theme.js'
 
@@ -118,6 +118,35 @@ const Home = () => {
           </Grid>
         </Grid>
         {/* website block */}
+
+        {/* revolution block */}
+        <Grid item>
+          
+          <Grid container style={{height:'100em',marginTop:'12em'}}  alignItems='center' justifyContent='center' >
+            <Card className={classes.revolutionCard} >
+            <CardContent>
+              <Grid style={{ textAlign:'center' }} container direction='column' justify='center' alignItems='center' >
+                <Grid item>
+                  <Typography variant='h3' gutterBottom >
+                    The revolution
+                  </Typography>
+                </Grid>
+                <Grid item  >
+                  <Typography variant='subtitle1'>
+                    visionary insight coupled with cutting age technology is a recipe for  revolution 
+                  </Typography>
+                  <Button className={classes.learnButtonHero} variant='outlined'> <span style={{marginRight:10}} >learn more</span> 
+                  <ButtonArrow width={15} height={15} fill={Theme.palette.common.blue} />
+                  </Button>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+          <div className={classes.revolutionBackground}  />
+
+        
+          </Grid>
+        </Grid>
       </Grid>
       
     </>

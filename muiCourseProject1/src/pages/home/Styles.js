@@ -1,5 +1,6 @@
 
 import { makeStyles } from "@material-ui/core";
+import revolutionBackground from '../../assets/repeatingBackground.svg'
 
 export default makeStyles((theme)=>({
   animation:{
@@ -74,6 +75,28 @@ export default makeStyles((theme)=>({
     marginTop:'12em',
     [theme.breakpoints.down('sm')]:{
       padding:25
+    }
+  },
+  revolutionBackground:{
+    backgroundImage:`url(${revolutionBackground})`,
+    backgroundPosition:'center',
+    backgroundSize:'cover',
+    backgroundRepeat:'no-repeat',
+    height:'100%',
+    width:'100%'
+  },
+  revolutionCard:{
+    position:'absolute',
+    boxShadow:theme.shadows[10],
+    borderRadius:15,
+    padding:'10em',
+    [theme.breakpoints.down('sm')]:{
+      paddingTop:'8em',
+      paddingBottom:'8em',
+      paddingLeft:0,
+      paddingRight:0,
+      borderRadius:0,
+      width:'100%'
     }
   }
 }))

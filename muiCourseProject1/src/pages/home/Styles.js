@@ -36,7 +36,10 @@ export default makeStyles((theme)=>({
     ...theme.typography.learnButton,
     fontSize:'0.7rem',
     height:35 ,
-    padding:5 
+    padding:5 ,
+    [theme.breakpoints.down('sm')]:{
+      marginBottom:'2em'
+    }
   },
   mainContainer:{
     marginTop:'5em',
@@ -68,6 +71,9 @@ export default makeStyles((theme)=>({
     }
   },
   serviceContainer:{
-    marginTop:'12em'
+    marginTop:'12em',
+    [theme.breakpoints.down('sm')]:{
+      padding:25
+    }
   }
 }))

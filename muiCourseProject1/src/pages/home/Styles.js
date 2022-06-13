@@ -1,6 +1,7 @@
 
 import { makeStyles } from "@material-ui/core";
 import revolutionBackground from '../../assets/repeatingBackground.svg'
+import infoBackground from '../../assets/infoBackground.svg'
 
 export default makeStyles((theme)=>({
   animation:{
@@ -78,12 +79,9 @@ export default makeStyles((theme)=>({
     }
   },
   revolutionBackground:{
+    ...theme.background,
     backgroundImage:`url(${revolutionBackground})`,
-    backgroundPosition:'center',
-    backgroundSize:'cover',
-    backgroundRepeat:'no-repeat',
-    height:'100%',
-    width:'100%'
+    
   },
   revolutionCard:{
     position:'absolute',
@@ -98,5 +96,9 @@ export default makeStyles((theme)=>({
       borderRadius:0,
       width:'100%'
     }
+  },
+  infoBackground:{
+    ...theme.background,
+    backgroundImage:`url(${infoBackground})`,
   }
 }))

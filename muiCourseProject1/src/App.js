@@ -16,7 +16,7 @@ const App = () => {
       <BrowserRouter>
         <Header value={value} setValue={setValue} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex}  />
         <Switch>
-          <Route exact path='/' component={Home}  />
+          <Route value={value} setValue={setValue} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex}    exact path='/' component={Home}  />
           <Route exact path='/services' component={()=> <div>Services</div> }  />
           <Route exact path='/revolution' component={()=> <div>Revolution</div> }  />
           <Route exact path='/about' component={()=> <div>About Us</div> }  />

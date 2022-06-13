@@ -108,5 +108,12 @@ export default createTheme({
         }
       }
     }
+  },
+  background:{
+    backgroundPosition:'center',
+    backgroundSize:'cover',
+    backgroundRepeat:'no-repeat',
+    height:'100%',
+    width:'100%'
   }
 });

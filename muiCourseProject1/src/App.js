@@ -12,6 +12,7 @@ import MobileApps from './pages/mobileApps/MobileApps'
 import Websites from './pages/websites/Websites'
 import Revolution from './pages/revolution/Revolution'
 import About from './pages/about/About'
+import Contact from './pages/contact/Contact'
 
 const App = () => {
   const [selectedIndex,setSelectedIndex] = useState(0)
@@ -101,7 +102,17 @@ const App = () => {
               />
             )}
           />
-          <Route exact path='/contact' component={()=> <div>Contact Us </div> }  />
+          <Route
+            exact
+            path="/contact"
+            render={props => (
+              <Contact
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
           <Route exact path='/estimate' component={()=> <div>Free Estimate </div> }  />
           <Route exact path='/customsoftware' component={()=> <div>Custome software services </div> }  />
           <Route exact path='/mobileapps' component={()=> <div>Mobile App Developement </div> }  />

@@ -9,6 +9,7 @@ import Home from './pages/home/Home'
 import Services from './pages/services/Services'
 import CustomeSoftware from './pages/customSoftware/CustomeSoftware'
 import MobileApps from './pages/mobileApps/MobileApps'
+import Websites from './pages/websites/Websites'
 
 const App = () => {
   const [selectedIndex,setSelectedIndex] = useState(0)
@@ -58,6 +59,18 @@ const App = () => {
             path="/mobileapps"
             render={props => (
               <MobileApps
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/websites"
+            render={props => (
+              <Websites
                 {...props}
                 setValue={setValue}
                 setSelectedIndex={setSelectedIndex}

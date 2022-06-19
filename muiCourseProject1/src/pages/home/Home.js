@@ -10,6 +10,7 @@ import {Grid, Button , Typography, useMediaQuery , Card ,CardContent , CardMedia
 import ButtonArrow from '../../components/ui/ButtonArrow'
 import Theme from '../../components/ui/Theme.js'
 import {Link} from 'react-router-dom'
+import CallToAction from '../../components/callToAction/CallToAction'
 
 const Home = (props) => {
   const classes = useStyles()
@@ -231,6 +232,10 @@ const Home = (props) => {
             </Grid>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item>
+        {/* call to action */}
+        <CallToAction/>
       </Grid>
       </Grid>
       

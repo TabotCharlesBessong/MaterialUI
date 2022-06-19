@@ -1,14 +1,9 @@
 import React from "react";
-import {Grid , Button , useMediaQuery} from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import {Grid , Button , useMediaQuery, Typography} from "@material-ui/core";
 import {  useTheme } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-
-
-import background from "../../assets/background.jpg";
-import mobileBackground from "../../assets/mobileBackground.jpg";
-
-
+import useStyles from './Styles.js'
+import ButtonArrow from "../ui/ButtonArrow.js";
 
 export default function CallToAction(props) {
   const classes = useStyles();
@@ -17,6 +12,7 @@ export default function CallToAction(props) {
 
   return (
     <Grid
+    // style={{height:"60rem"}}
       container
       alignItems="center"
       justify={matchesSM ? "center" : "space-between"}

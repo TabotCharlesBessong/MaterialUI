@@ -1,5 +1,7 @@
 
 import {makeStyles} from '@material-ui/core'
+import background from "../../assets/background.jpg";
+import mobileBackground from "../../assets/mobileBackground.jpg";
 
 export default makeStyles (theme => ({
   learnButton: {

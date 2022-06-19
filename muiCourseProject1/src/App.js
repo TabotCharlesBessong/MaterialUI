@@ -7,6 +7,7 @@ import { BrowserRouter , Route , Switch  } from 'react-router-dom'
 import Footer from './components/footer/Footer'
 import Home from './pages/home/Home'
 import Services from './pages/services/Services'
+import CustomeSoftware from './pages/customSoftware/CustomeSoftware'
 
 const App = () => {
   const [selectedIndex,setSelectedIndex] = useState(0)
@@ -33,6 +34,17 @@ const App = () => {
             path="/services"
             render={props => (
               <Services
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/customsoftware"
+            render={props => (
+              <CustomeSoftware
                 {...props}
                 setValue={setValue}
                 setSelectedIndex={setSelectedIndex}

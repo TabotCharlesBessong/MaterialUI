@@ -2,7 +2,7 @@
 
 import React from "react";
 import { makeStyles, useTheme , Grid , Typography, Hidden , useMediaQuery,Avatar } from "@material-ui/core";
-
+import useStyles from './Styles.js'
 
 import history from "../../assets/history.svg";
 import profile from "../../assets/founder.jpg";

@@ -18,7 +18,7 @@ import uxAnimation from '../../animations/uxAnimation/data'
 import CallToAction from "../../components/callToAction/CallToAction";
 
 
-export default function CustomSoftware(props) {
+const CustomSoftware = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
@@ -442,3 +442,5 @@ export default function CustomSoftware(props) {
     </Grid>
   );
 }
+
+export default CustomSoftware

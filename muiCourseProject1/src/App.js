@@ -6,6 +6,7 @@ import theme from './components/ui/Theme'
 import { BrowserRouter , Route , Switch  } from 'react-router-dom'
 import Footer from './components/footer/Footer'
 import Home from './pages/home/Home'
+import Services from './pages/services/Services'
 
 const App = () => {
   const [selectedIndex,setSelectedIndex] = useState(0)
@@ -16,8 +17,28 @@ const App = () => {
       <BrowserRouter>
         <Header value={value} setValue={setValue} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex}  />
         <Switch>
-          <Route value={value} setValue={setValue} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex}    exact path='/' component={Home}  />
-          <Route exact path='/services' component={()=> <div>Services</div> }  />
+                    <Route
+            exact
+            path="/"
+            render={props => (
+              <Home
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/services"
+            render={props => (
+              <Services
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
           <Route exact path='/revolution' component={()=> <div>Revolution</div> }  />
           <Route exact path='/about' component={()=> <div>About Us</div> }  />
           <Route exact path='/contact' component={()=> <div>Contact Us </div> }  />

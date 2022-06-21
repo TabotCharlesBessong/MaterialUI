@@ -36,18 +36,21 @@ export default createMuiTheme({
       fontWeight: 700,
       fontSize: "2.5rem",
       color: arcBlue,
-      lineHeight: 1.5
+      lineHeight: 1.5,
+      textTransform:"capitalize"
     },
     h3: {
       fontFamily: "Pacifico",
       fontSize: "2.5rem",
-      color: arcBlue
+      color: arcBlue,
+      textTransform:"capitalize"
     },
     h4: {
       fontFamily: "Raleway",
       fontSize: "1.75rem",
       color: arcBlue,
-      fontWeight: 700
+      fontWeight: 700,
+      textTransform:"capitalize"
     },
     h6: {
       fontWeight: 500,

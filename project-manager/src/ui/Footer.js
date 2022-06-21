@@ -1,8 +1,6 @@
 import React from "react";
-import Link from "./Link";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
+import { makeStyles } from "@material-ui/core";
+import logo from '../../public/assets/footerAdornment.svg'
 
 const useStyles = makeStyles(theme => ({
   footer: {
@@ -20,35 +18,6 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down("xs")]: {
       width: "15em"
     }
-  },
-  mainContainer: {
-    position: "absolute"
-  },
-  link: {
-    color: "white",
-    fontFamily: "Arial",
-    fontSize: "0.75rem",
-    fontWeight: "bold",
-    textDecoration: "none"
-  },
-  gridItem: {
-    margin: "3em"
-  },
-  icon: {
-    height: "4em",
-    width: "4em",
-    [theme.breakpoints.down("xs")]: {
-      height: "2.5em",
-      width: "2.5em"
-    }
-  },
-  socialContainer: {
-    position: "absolute",
-    marginTop: "-6em",
-    right: "1.5em",
-    [theme.breakpoints.down("xs")]: {
-      right: "0.6em"
-    }
   }
 }));
 
@@ -61,7 +30,7 @@ export default function Footer(props) {
 
       <img
         alt="black decorative slash"
-        src="static/assets/footerAdornment.svg"
+        src={logo}
         className={classes.adornment}
       />
 

@@ -1,6 +1,6 @@
 
 import React , {useState} from 'react'
-import { Grid, Typography  , TextField , InputAdornment  , Switch , FormGroup , FormControlLabel , Table , TableBody , TableCell ,  TableHead , TableContainer , TableRow , Paper  , Dialog , DialogContent , RadioGroup , Radio} from '@material-ui/core'
+import { Grid, Typography  , TextField , InputAdornment  , Switch , FormGroup , FormControlLabel , Table , TableBody , TableCell ,  TableHead , TableContainer , TableRow , Paper  , Dialog , DialogContent , RadioGroup , Radio , Select , MenuItem} from '@material-ui/core'
 import { makeStyles, useTheme } from "@material-ui/core/styles"; 
 
 import {MuiPickersUtilsProvider , KeyboardDatePicker } from '@material-ui/pickers'
@@ -32,6 +32,10 @@ const ProjectManager = ()=>{
   createData('Nerus Zaumu','21/04/2001','UI/UX Design','Classic','N/A','N/A','N/A',''),
   createData('Balemba Junior','27/07/2000','Cyber Security','Hacking','N/A','N/A','N/A','1320')
 ])
+
+  const platformOptions = ['Web','iOS','Android'] 
+  const featuresOptions = ['Photo/Video','GPS','File Transfer' , 'User/Authentication','Biometrics','Push Notification'] 
+
   const [website,setWebsite] = useState(false)
   const [iOS,setIOS] = useState(false)
   const [android,setAndroid] = useState(false)
@@ -44,6 +48,8 @@ const ProjectManager = ()=>{
   const [services,setServices] = useState('')
   const [complixity,setComplixity] = useState('')
   const [users,setUsers] = useState('')
+  const [platforms,setPlatforms] = useState([])
+  const [features,setFeatures] = useState([])
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} >
@@ -160,6 +166,14 @@ const ProjectManager = ()=>{
                    <FormControlLabel classes={{label:classes.service}} value='Custom Software' label='Custom Software' control={<Radio/>}/>
                   </RadioGroup>
                 </Grid>
+
+                <Grid item style={{marginTop:'5em'}} >
+                  <Select style={{zIndex:13 , width:'12em'}}  labelId='Platforms' id='platforms' multiple displayEmpty renderValue={ platforms.length > 0 ? undefined : () => 'Platforms'}  value={platforms} onChange={()=> setPlatforms(event.target.value) }  >
+                    {platformOptions.map(opt => (
+                      <MenuItem key={opt} value={opt} > {opt} </MenuItem>
+                    )  )}
+                  </Select>
+                </Grid>
               </Grid>
             </Grid>
             </Grid>
@@ -192,16 +206,16 @@ const ProjectManager = ()=>{
             </Grid>
             
             <Grid item>
-            <Grid item alignItems='flex-end' container direction='column' sm>
+            <Grid item  container direction='column' sm>
               <Grid item>
                 <TextField inputProps={{startAdornment : <InputAdornment position='start' >$</InputAdornment> }} label='Total' id='total' value={total} onChnage={()=> setTotal(e.target.value) } >
 
                 </TextField>
               </Grid>
-              <Grid item>
+              <Grid item  >
 
               
-              <Grid item container style={{marginTop:'5em'}} direction='column' >
+              <Grid item container alignItems='flex-end' style={{marginTop:'5em'}} direction='column' >
                 <Grid item>
                   <Typography variant='h4' >
                     Users
@@ -215,6 +229,14 @@ const ProjectManager = ()=>{
 
                    <FormControlLabel classes={{label:classes.service , root:classes.users}} value='100+' label='100+' control={<Radio/>}/>
                   </RadioGroup>
+                </Grid>
+
+                <Grid item style={{marginTop:'5em'}} >
+                  <Select style={{zIndex:13 , width:'12em'}} labelId='Features' id='features' multiple displayEmpty renderValue={ features.length > 0 ? undefined : () => 'Features'}  value={platforms} onChange={()=> setPlatforms(event.target.value) }  >
+                    {featuresOptions.map(opt => (
+                      <MenuItem key={opt} value={opt} > {opt} </MenuItem>
+                    )  )}
+                  </Select>
                 </Grid>
               </Grid>
               </Grid>

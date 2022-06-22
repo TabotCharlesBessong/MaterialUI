@@ -1,7 +1,10 @@
 
 import React , {useState} from 'react'
-import { Grid, Typography  , TextField , InputAdornment  , Switch , FormGroup , FormControlLabel , Table , TableBody , TableCell ,  TableHead , TableContainer , TableRow , Paper  } from '@material-ui/core'
+import { Grid, Typography  , TextField , InputAdornment  , Switch , FormGroup , FormControlLabel , Table , TableBody , TableCell ,  TableHead , TableContainer , TableRow , Paper  , Dialog , DialogContent} from '@material-ui/core'
 import { makeStyles, useTheme } from "@material-ui/core/styles"; 
+
+import {MuiPickersUtilsProvider , KeyboardDatePicker } from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns'
 
 import {Add , FilterList } from '@material-ui/icons'
 
@@ -29,7 +32,14 @@ const ProjectManager = ()=>{
   const [android,setAndroid] = useState(false)
   const [software,setSoftware] = useState(false)
 
+  const [dialogOPen,setDialogOpen] = useState(false)
+  const [name,setName] = useState('')
+  const [date,setDate] = useState(new Date())
+  const [total,setTotal] = useState('')
+
   return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils} >
+
     <Grid container direction='column'>
       <Grid item style={{marginTop:'2em',marginLeft:'5em'}} >
         <Typography variant='h1'>
@@ -37,7 +47,7 @@ const ProjectManager = ()=>{
         </Typography>
       </Grid>
       <Grid item>
-        <TextField placeholder="search project detail or create a new entry" style={{width:'35em'  , marginLeft:'5em'}}  InputProps={{endAdornment: <InputAdornment style={{fontSize:30}} position='end' > <Add color='primary' /> </InputAdornment> }} /> 
+        <TextField placeholder="search project detail or create a new entry" style={{width:'35em'  , marginLeft:'5em'}}  InputProps={{endAdornment: <InputAdornment style={{fontSize:30}} position='end' > <Add style={{cursor:'pointer'}} onClick={()=> setDialogOpen(true) } color='primary' /> </InputAdornment> }} /> 
       </Grid>
 
       <Grid item style={{marginTop:"2em"}} >
@@ -108,7 +118,53 @@ const ProjectManager = ()=>{
           </Table>
         </TableContainer>
       </Grid>
+
+      <Dialog fullWidth maxWidth='md' open={dialogOPen} onClose={()=> setDialogOpen(false) }>
+        <Grid container justify='center'>
+          <Grid item>
+            <Typography variant='h1' gutterBottom>
+              add a new Project
+            </Typography>
+          </Grid>
+        </Grid>
+        <DialogContent >
+          
+          <Grid container justify='space-between' >
+            <Grid item>
+            <Grid item container direction='column' sm>
+              <Grid item>
+                <TextField label='name' id='name' value={name} onChnage={()=> setName(e.target.value) } >
+
+                </TextField>
+              </Grid>
+            </Grid>
+            </Grid>
+            
+            <Grid item>
+            <Grid item container direction='column' sm>
+              <Grid item style={{marginTop:16}} >
+
+                <KeyboardDatePicker   value=  {date} onChange = {()=> setDate(new Date()) }    />
+              </Grid>
+            </Grid>
+            </Grid>
+            
+            <Grid item>
+            <Grid item container direction='column' sm>
+              <Grid item>
+                <TextField inputProps={{startAdornment : <InputAdornment>$</InputAdornment> }} label='total' id='total' value={total} onChnage={()=> setTotal(e.target.value) } >
+
+                </TextField>
+              </Grid>
+            </Grid>
+            </Grid>
+            
+          </Grid>
+        </DialogContent>
+      </Dialog>
     </Grid>
+    </MuiPickersUtilsProvider>
+
   )
 }
 

@@ -18,7 +18,7 @@
     "@material-ui/pickers": "^3.3.10",
     "@material-ui/styles": "^4.11.5",
     "axios": "^0.23.0",
-    "date-fns": "^2.28.0",
+    "date-fns": "^2.0.0-beta.5",
     "framer-motion": "^4.1.17",
     "millify": "^4.0.0",
     "next": "11.1.2",

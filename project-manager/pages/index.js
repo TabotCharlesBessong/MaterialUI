@@ -1,6 +1,6 @@
 
 import React , {useState} from 'react'
-import { Grid, Typography  , TextField , InputAdornment  , Switch , FormGroup , FormControlLabel , Table , TableBody , TableCell ,  TableHead , TableContainer , TableRow , Paper  , Dialog , DialogContent} from '@material-ui/core'
+import { Grid, Typography  , TextField , InputAdornment  , Switch , FormGroup , FormControlLabel , Table , TableBody , TableCell ,  TableHead , TableContainer , TableRow , Paper  , Dialog , DialogContent , RadioGroup , Radio} from '@material-ui/core'
 import { makeStyles, useTheme } from "@material-ui/core/styles"; 
 
 import {MuiPickersUtilsProvider , KeyboardDatePicker } from '@material-ui/pickers'
@@ -9,7 +9,12 @@ import DateFnsUtils from '@date-io/date-fns'
 import {Add , FilterList } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
-
+  service:{
+    fontWeight:300
+  },
+  user:{
+    marginRight:0
+  }
 }) )
 
 const createData = (names,date,services,features,complexity,platforms,users,total) => {
@@ -36,6 +41,9 @@ const ProjectManager = ()=>{
   const [name,setName] = useState('')
   const [date,setDate] = useState(new Date())
   const [total,setTotal] = useState('')
+  const [services,setServices] = useState('')
+  const [complixity,setComplixity] = useState('')
+  const [users,setUsers] = useState('')
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} >
@@ -133,28 +141,82 @@ const ProjectManager = ()=>{
             <Grid item>
             <Grid item container direction='column' sm>
               <Grid item>
-                <TextField label='name' id='name' value={name} onChnage={()=> setName(e.target.value) } >
+                <TextField fullWidth label='Name' id='name' value={name} onChnage={()=> setName(e.target.value) } >
 
                 </TextField>
+              </Grid>
+              <Grid item container style={{marginTop:'5em'}} direction='column' >
+                <Grid item>
+                  <Typography variant='h4' >
+                    Services
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <RadioGroup aria-label='Services' name='services' value={services} onChange={()=> setServices(e.target.value) }  >
+                   <FormControlLabel classes={{label:classes.service}} value='website' label='Website' control={<Radio/>}/>
+
+                   <FormControlLabel classes={{label:classes.service}} value='Mobile App' label='Mobile App' control={<Radio/>}/>
+
+                   <FormControlLabel classes={{label:classes.service}} value='Custom Software' label='Custom Software' control={<Radio/>}/>
+                  </RadioGroup>
+                </Grid>
               </Grid>
             </Grid>
             </Grid>
             
             <Grid item>
-            <Grid item container direction='column' sm>
+            <Grid item alignItems='center' container direction='column' sm>
               <Grid item style={{marginTop:16}} >
 
                 <KeyboardDatePicker   value=  {date} onChange = {()=> setDate(new Date()) }    />
               </Grid>
+              <Grid item>
+              <Grid item container style={{marginTop:'5em'}} direction='column' >
+                <Grid item>
+                  <Typography variant='h4' >
+                    Complixity
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <RadioGroup aria-label='Complixity' name='complixity' value={complixity} onChange={()=> setComplixity(e.target.value) }  >
+                   <FormControlLabel classes={{label:classes.service}} value='Low' label='Low' control={<Radio/>}/>
+
+                   <FormControlLabel classes={{label:classes.service}} value='Medium' label='Medium' control={<Radio/>}/>
+
+                   <FormControlLabel classes={{label:classes.service}} value='Hign' label='Hign' control={<Radio/>}/>
+                  </RadioGroup>
+                </Grid>
+              </Grid>
+              </Grid>
             </Grid>
             </Grid>
             
             <Grid item>
-            <Grid item container direction='column' sm>
+            <Grid item alignItems='flex-end' container direction='column' sm>
               <Grid item>
-                <TextField inputProps={{startAdornment : <InputAdornment>$</InputAdornment> }} label='total' id='total' value={total} onChnage={()=> setTotal(e.target.value) } >
+                <TextField inputProps={{startAdornment : <InputAdornment position='start' >$</InputAdornment> }} label='Total' id='total' value={total} onChnage={()=> setTotal(e.target.value) } >
 
                 </TextField>
+              </Grid>
+              <Grid item>
+
+              
+              <Grid item container style={{marginTop:'5em'}} direction='column' >
+                <Grid item>
+                  <Typography variant='h4' >
+                    Users
+                  </Typography>
+                </Grid> 
+                <Grid item>
+                  <RadioGroup aria-label='Users' name='users' value={services} onChange={()=> setUsers(e.target.value) }  >
+                   <FormControlLabel classes={{label:classes.service , root:classes.users}} value='0-10' label='0-10' control={<Radio/>}/>
+
+                   <FormControlLabel classes={{label:classes.service , root:classes.users}} value='10-100' label='10-100' control={<Radio/>}/>
+
+                   <FormControlLabel classes={{label:classes.service , root:classes.users}} value='100+' label='100+' control={<Radio/>}/>
+                  </RadioGroup>
+                </Grid>
+              </Grid>
               </Grid>
             </Grid>
             </Grid>

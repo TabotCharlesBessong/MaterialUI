@@ -1,9 +1,13 @@
 
 import React from 'react'
+import useStyles from './Styles.js'
 
-const Details = () => {
+const Details = ({place}) => {
+  const classes = useStyles()
   return (
-    <div>Details</div>
+    <h1>
+      {place.name}
+    </h1>
   )
 }
 

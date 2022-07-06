@@ -5,9 +5,22 @@ import { AppBar, Toolbar, Typography, InputBase, Box } from '@material-ui/core';
 import {Search} from '@material-ui/icons'
 
 import useStyles from './Styles.js';
+import { useState } from 'react';
 
-const Navbar = ({ onPlaceChanged, onLoad }) => {
+const Navbar = ({ setCoordinate }) => {
   const classes = useStyles();
+  const [autoComplete, setAutoComplete] = useState(null)
+
+  const onLoad = (autoC) =>{
+    setAutoComplete(autoC)
+  }
+
+  const onPlaceChanged = ()=>{
+    const lat = autoComplete.getPlace().geometry.location.lat() || null  
+    const lng = autoComplete.getPlace().geometry.location.lng() || null 
+
+    setCoordinate({lat,lng})
+  }
 
   return (
     <AppBar position="static">
@@ -19,14 +32,14 @@ const Navbar = ({ onPlaceChanged, onLoad }) => {
           <Typography variant="h6" className={classes.title}>
             Explore new places
           </Typography>
-          {/* <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}> */}
+          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <Search />
               </div>
               <InputBase placeholder="Search…" classes={{ root: classes.inputRoot, input: classes.inputInput }} />
             </div>
-          {/* </Autocomplete> */}
+          </Autocomplete>
         </Box>
       </Toolbar>
     </AppBar>

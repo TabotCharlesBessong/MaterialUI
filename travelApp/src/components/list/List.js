@@ -7,10 +7,8 @@ import Details from '../placeDetails/Details'
 
 
 
-const List = ({places,childClicked,loading}) => {
+const List = ({places,childClicked,loading,type,setType,rating,setRating}) => {
   const classes = useStyles()
-  const [type,setType] = useState('restaurants')
-  const [rating,setRating] = useState('')
   console.log({childClicked})   // consoleloging in this way  , gives you more info 
 
   const [lRef,setLRef] = useState([])

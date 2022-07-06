@@ -5,8 +5,11 @@ import { Card , Typography , Box , Button , CardMedia,CardContent,CardActions , 
 import { LocationOn , Phone } from '@material-ui/icons'
 import { Rating } from '@material-ui/lab'
 
-const Details = ({place}) => {
+const Details = ({place,selected,refProp}) => {
   const classes = useStyles()
+
+  if(selected) refProp?.current?.scrollIntoView({behavior:'smooth',block:'start'})
+  
   return (
     <Card elevation={6} className={classes.card}>
       <CardMedia style={{height:360}} image={place.photo ? place.photo.images.large.url : 'https://imageio.forbes.com/specials-images/imageserve/628e3814b2b4253c117d4f13/Dining-Column-on-New-Heights-Restaurant/960x0.jpg?format=jpg&width=960'} title={place.name}/>
@@ -15,6 +18,10 @@ const Details = ({place}) => {
         <Typography gutterBottom variant='h5'>
           {place.name}
         </Typography>
+        <Box display="flex" justifyContent="space-between" my={2}>
+          <Rating name="read-only" value={Number(place.rating)} readOnly />
+          <Typography component="legend">{place.num_reviews} review{place.num_reviews > 1 && 's'}</Typography>
+        </Box>
         <Box display='flex' justifyContent='space-between' alignItems='center' className={classes.subtitle}>
           <Typography variant='subtitle1'>
             Price 

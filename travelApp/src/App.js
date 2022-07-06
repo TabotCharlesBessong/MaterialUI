@@ -1,8 +1,9 @@
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
+// import Navbar from './components/Navbar/Navbar';
 import {CssBaseline, Grid } from '@material-ui/core'
-import List from './components/list/List';
-import Map from './components/map/Map';
+// import List from './components/list/List';
+// import Map from './components/map/Map';
+import {Navbar , Map,List,Details} from './components';
 
 
 function App() {

@@ -3,7 +3,8 @@ import React from 'react'
 import GoogleMapReact  from 'google-map-react'
 import { Rating } from '@material-ui/lab'
 import useStyles from './Styles.js'
-import { useMediaQuery } from '@mui/material'
+import { useMediaQuery } from '@material-ui/core'
+import {LocationOutlined} from '@material-ui/icons'
 
 const Map = () => {
   const classes = useStyles()

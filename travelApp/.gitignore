@@ -7,7 +7,7 @@
 /src/images 
 /src/images
 /src/images
-
+*.env
 
 # testing
 /coverage

@@ -1,11 +1,7 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../components/ui/Theme";
 import { mockTransactions } from "../../constant/data";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
+import { DownloadOutlined, Email,PointOfSales,Traffic , PersonAdd } from "@mui/icons-material";
 import { Head } from "../../components";
 import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
@@ -33,7 +29,7 @@ const Dashboard = () => {
 							padding: "10px 20px",
 						}}
 					>
-						<DownloadOutlinedIcon sx={{ mr: "10px" }} />
+						<DownloadOutlined sx={{ mr: "10px" }} />
 						Download Reports
 					</Button>
 				</Box>
@@ -60,7 +56,7 @@ const Dashboard = () => {
 						progress="0.75"
 						increase="+14%"
 						icon={
-							<EmailIcon
+							<Email
 								sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
 							/>
 						}
@@ -79,7 +75,7 @@ const Dashboard = () => {
 						progress="0.50"
 						increase="+21%"
 						icon={
-							<PointOfSaleIcon
+							<PointOfSale
 								sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
 							/>
 						}
@@ -98,7 +94,7 @@ const Dashboard = () => {
 						progress="0.30"
 						increase="+5%"
 						icon={
-							<PersonAddIcon
+							<PersonAdd
 								sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
 							/>
 						}
@@ -117,7 +113,7 @@ const Dashboard = () => {
 						progress="0.80"
 						increase="+43%"
 						icon={
-							<TrafficIcon
+							<Traffic
 								sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
 							/>
 						}
@@ -155,7 +151,7 @@ const Dashboard = () => {
 						</Box>
 						<Box>
 							<IconButton>
-								<DownloadOutlinedIcon
+								<DownloadOutlined
 									sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
 								/>
 							</IconButton>

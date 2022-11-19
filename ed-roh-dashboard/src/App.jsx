@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import { Header } from './components'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <h1>Hello app</h1>
+    <div className="app">
+      <Header/>
     </div>
   )
 }

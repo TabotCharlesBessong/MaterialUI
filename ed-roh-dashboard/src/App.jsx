@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Header } from './components'
+import { Header,Sidebar } from './components'
 import { Route , Routes} from 'react-router-dom'
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./components/ui/Theme";
@@ -13,10 +13,13 @@ function App() {
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<div className="app">
-					<Header />
-					<Routes>
-						<Route path="/" element={<Dashboard />} />
-					</Routes>
+					<main className="content">
+						<Sidebar />
+						<Header />
+						<Routes>
+							<Route path="/" element={<Dashboard />} />
+						</Routes>
+					</main>
 				</div>
 			</ThemeProvider>
 		</ColorModeContext.Provider>

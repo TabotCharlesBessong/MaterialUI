@@ -1,13 +1,10 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../components/ui/Theme";
 import { mockTransactions } from "../../constant/data";
-import { DownloadOutlined, Email,PointOfSales,Traffic , PersonAdd } from "@mui/icons-material";
-import { Head } from "../../components";
-import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
-import StatBox from "../../components/StatBox";
-import ProgressCircle from "../../components/ProgressCircle";
+import { DownloadOutlined,Traffic , PersonAdd } from "@mui/icons-material";
+import { Head,LineChart,GeographyChart,BarChart,StatBox,ProgressCircle } from "../../components";
+import { EmailSharp } from "@mui/icons-material";
+import { PointOfSale } from "@mui/icons-material";
 
 const Dashboard = () => {
 	const theme = useTheme();
@@ -56,7 +53,7 @@ const Dashboard = () => {
 						progress="0.75"
 						increase="+14%"
 						icon={
-							<Email
+							<EmailSharp
 								sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
 							/>
 						}

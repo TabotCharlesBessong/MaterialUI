@@ -1,4 +1,6 @@
  
+ import { tokens } from "../components/ui/Theme";
+
  export const mockDataTeam = [
 		{
 			id: 1,

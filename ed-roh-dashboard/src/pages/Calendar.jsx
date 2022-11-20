@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Calendar } from '@fullcalendar/core';
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -15,7 +16,7 @@ import {
 import {Head} from "../components";
 import { tokens } from "../components/ui/Theme";
 
-const Calendar = () => {
+const Calendars = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -128,4 +129,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default Calendars;

@@ -85,15 +85,49 @@ export default createMuiTheme({
 		},
 	},
 	overrides: {
-    MuiFormControlLabel:{
-      label:{
-        color:arcBlue,
-        fontWeight:700
-      },
-			labelPlacementStart:{
-        marginLeft:0
-			}
-    },
+		MuiTableCell: {
+			head: {
+				fontSize: "1rem",
+				fontWeight: 700,
+				color: arcBlue,
+				borderColor: arcBlue,
+				borderWidth: 2,
+			},
+			body: {
+				color: arcGrey,
+				borderColor: arcBlue,
+				borderWidth: 2,
+			},
+		},
+		MuiTableSortLabel: {
+			root: {
+				"&:hover": {
+					color: arcOrange,
+				},
+				"&.MuiTableSortLabel-active": {
+					color: arcOrange,
+				},
+			},
+			icon: {
+				fill: arcOrange,
+			},
+		},
+		MuiSvgIcon: {
+			root: {
+				"&.MuiSelect-icon": {
+					fill: arcOrange,
+				},
+			},
+		},
+		MuiFormControlLabel: {
+			label: {
+				color: arcBlue,
+				fontWeight: 700,
+			},
+			labelPlacementStart: {
+				marginLeft: 0,
+			},
+		},
 		MuiInputLabel: {
 			root: {
 				color: arcBlue,

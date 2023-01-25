@@ -1,10 +1,10 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 
 const arcBlue = "#0B72B9";
 const arcOrange = "#FFBA60";
 const arcGrey = "#868686";
 
-export default createMuiTheme({
+export default createTheme({
 	palette: {
 		common: {
 			blue: arcBlue,
@@ -97,7 +97,7 @@ export default createMuiTheme({
 				color: arcGrey,
 				borderColor: arcBlue,
 				borderWidth: 2,
-			},
+			}
 		},
 		MuiTableSortLabel: {
 			root: {

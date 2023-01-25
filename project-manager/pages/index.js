@@ -1,18 +1,20 @@
-import Head from "next/head";
 
-export default function Home() {
+import React from 'react'
+import {Grid,Typography,useTheme,useMediaQuery,makeStyles} from '@material-ui/core'
 
-	return (
-		<div>
-			<Head>
-				<title>Home Page</title>
-			</Head>
+const useStyles = makeStyles(theme => ({
 
-			<main>
-				<h1 className="text-5xl text-green-500">Hello My World</h1>
+}))
 
-			</main>
-		</div>
-	);
+export default function ProjectManager(){
+  const classes = useStyles()
+  const theme = useTheme
+
+  return (
+    <Grid container direction='column'>
+      <Grid item>
+        <Typography variant='h1'>Project Manager</Typography>
+      </Grid>
+    </Grid>
+  )
 }
-

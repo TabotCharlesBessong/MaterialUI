@@ -17,6 +17,7 @@ specifiers:
   react-to-print: ^2.14.11
   redux: ^4.2.1
   redux-thunk: ^2.4.2
+  typescript: ^4.9.4
   vite: ^4.0.0
 
 dependencies:
@@ -33,6 +34,7 @@ dependencies:
   react-to-print: 2.14.11_biqbaboplfbrettd7655fr4n2y
   redux: 4.2.1
   redux-thunk: 2.4.2_redux@4.2.1
+  typescript: 4.9.4
 
 devDependencies:
   '@types/react': 18.0.27
@@ -1385,6 +1387,12 @@ packages:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
     dev: true
+
+  /typescript/4.9.4:
+    resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: false
 
   /update-browserslist-db/1.0.10_browserslist@4.21.4:
     resolution: {integrity: sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ==}

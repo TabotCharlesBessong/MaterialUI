@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { SaveEducationData  , ModifyEducationCount } from "../../actions";
-import { makeStyles } from "@material-ui/core/styles";
 import {
-  Box,
   Button,
   Card,
-  CardContent,
-  CardHeader,
-  Divider,
   Grid,
   TextField,
-
-  Typography,
-  Paper
+  makeStyles
 } from "@material-ui/core";
 
 
@@ -25,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
    marginRight: "1%"
   },
   addButton: {
-
+    marginLeft:"1%"
   },
   footer: {
     alignItems: "left",

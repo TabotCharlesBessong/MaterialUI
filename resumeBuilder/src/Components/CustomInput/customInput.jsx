@@ -2,20 +2,16 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
+import { makeStyles,FormControl,InputLabel,Input } from "@material-ui/core";
 // @material-ui/icons
-import Clear from "@material-ui/icons/Clear";
-import Check from "@material-ui/icons/Check";
+import {Clear,Check} from '@material-ui/icons'
 // core components
 import { useForm, ErrorMessage, Controller } from "react-hook-form";
 const useStyles = makeStyles(() => {});
 
-export default function CustomInput(props) {
+const CustomInput = (props)=> {
   const classes = useStyles();
-  var {
+  let {
     formControlProps,
     labelText,
     id,
@@ -92,6 +88,7 @@ export default function CustomInput(props) {
   );
 }
 
+// typescript
 CustomInput.propTypes = {
   labelText: PropTypes.node,
   labelProps: PropTypes.object,
@@ -108,3 +105,5 @@ CustomInput.propTypes = {
 CustomInput.defaultProps = {
   type: "text"
 };
+
+export default CustomInput

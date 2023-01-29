@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { SaveProfileData } from "../../actions"; 
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Box,
   Button,
@@ -10,7 +9,7 @@ import {
   Divider,
   Grid,
   TextField,
-
+  makeStyles,
   Typography
 } from "@material-ui/core";
 import { connect } from "react-redux";

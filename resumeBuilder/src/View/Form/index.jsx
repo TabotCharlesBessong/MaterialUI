@@ -1,10 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepButton from "@material-ui/core/StepButton";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+
+import { makeStyles,Stepper,Step,StepButton,Button,Typography } from "@material-ui/core";
+
 import ProfileForm from "./profileForm";
 import EducationForm from "./education";
 import Skills from "./skills";

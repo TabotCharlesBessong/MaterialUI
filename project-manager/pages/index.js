@@ -128,6 +128,14 @@ export default function ProjectManager() {
 			),
 		]);
 		setDialogOpen(false);
+		setName("")
+		setDate(new Date())
+		setTotal("")
+		setService("")
+		setComplexity("")
+		setUsers("")
+		setPlatforms([])
+		setFeatures([])
 	};
 
 	return (
@@ -524,6 +532,20 @@ export default function ProjectManager() {
 								variant="contained"
 								className={classes.button}
 								onClick={addProject}
+								disabled={
+									service === "Website"
+										? name.length === 0 ||
+										  total.length === 0 ||
+										  features.length === 0 ||
+										  features.length > 1
+										: name.length === 0 ||
+										  total.length === 0 ||
+										  features.length === 0 ||
+										  users.length === 0 ||
+										  complexity.length === 0 ||
+										  platforms.length === 0 ||
+										  service.length === 0
+								}
 							>
 								Add Project
 							</Button>

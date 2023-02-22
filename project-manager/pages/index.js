@@ -168,7 +168,7 @@ export default function ProjectManager(){
 					</FormGroup>
 				</Grid>
 
-				<Grid item container style={{ marginTop: "5em" }} justify="flex-end">
+				<Grid item container style={{ marginTop: "5em" }} justifyContent="flex-end">
 					<Grid item style={{ marginRight: 50 }}>
 						<FilterList
 							style={{ fontSize: "5em", cursor: "pointer" }}
@@ -212,7 +212,7 @@ export default function ProjectManager(){
 				</Grid>
 
 				<Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-          <Grid container justify='center' >
+          <Grid container justifyContent='center' >
             <Grid item>
               <Typography variant='h1' gutterBottom>
                 add a new project

@@ -1,13 +1,32 @@
-
-import React,{useState} from 'react'
-import {Grid,Typography,useTheme,makeStyles,TextField,InputAdornment,Switch,FormGroup,FormControlLabel,Table,TableBody,TableHead,TableContainer,TableRow,TableCell,Paper,Dialog,DialogContent} from '@material-ui/core'
-import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers'
+import React, { useState } from "react";
+import {
+	Grid,
+	Typography,
+	useTheme,
+	makeStyles,
+	TextField,
+	InputAdornment,
+	Switch,
+	FormGroup,
+	FormControlLabel,
+	Table,
+	TableBody,
+	TableHead,
+	TableContainer,
+	TableRow,
+	TableCell,
+	Paper,
+	Dialog,
+	DialogContent,
+} from "@material-ui/core";
+import {
+	MuiPickersUtilsProvider,
+	KeyboardDatePicker,
+} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import {Add,FilterList} from '@material-ui/icons' 
+import { Add, FilterList } from "@material-ui/icons";
 
-const useStyles = makeStyles(theme => ({
-
-}))
+const useStyles = makeStyles((theme) => ({}));
 
 const createData = (
 	name,
@@ -31,10 +50,10 @@ const createData = (
 	};
 };
 
-export default function ProjectManager(){
-  const classes = useStyles()
-  const theme = useTheme
-  const [rows, setRows] = useState([
+export default function ProjectManager() {
+	const classes = useStyles();
+	const theme = useTheme;
+	const [rows, setRows] = useState([
 		createData(
 			"Charles",
 			"26-09-2002",
@@ -86,14 +105,17 @@ export default function ProjectManager(){
 			"$342"
 		),
 	]);
-  const [websiteChecked,setWebsiteChecked] = useState(false)
-  const [iOSChecked,setIOSChecked] = useState(false)
-  const [androidChecked,setAndroidChecked] = useState(false)
-  const [softwareChecked, setSoftwareChecked] = useState(false);
-  const [dialogOpen,setDialogOpen] = useState(false)
+	const [websiteChecked, setWebsiteChecked] = useState(false);
+	const [iOSChecked, setIOSChecked] = useState(false);
+	const [androidChecked, setAndroidChecked] = useState(false);
+	const [softwareChecked, setSoftwareChecked] = useState(false);
+	const [dialogOpen, setDialogOpen] = useState(false);
+	const [name, setName] = useState("");
+	const [date, setDate] = useState(new Date());
+	const [total, setTotal] = useState(12000);
 
-  return (
-		<MuiPickersUtilsProvider utils={DateFnsUtils} >
+	return (
+		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<Grid container direction="column">
 				<Grid item style={{ marginTop: "2em", marginLeft: "5em" }}>
 					<Typography variant="h1">Project Manager</Typography>
@@ -105,7 +127,11 @@ export default function ProjectManager(){
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position="end">
-									<Add onClick={() =>setDialogOpen(true)} color="primary" style={{ fontSize: 30 }} />
+									<Add
+										onClick={() => setDialogOpen(true)}
+										color="primary"
+										style={{ fontSize: 30, cursor: "pointer" }}
+									/>
 								</InputAdornment>
 							),
 						}}
@@ -168,7 +194,12 @@ export default function ProjectManager(){
 					</FormGroup>
 				</Grid>
 
-				<Grid item container style={{ marginTop: "5em" }} justifyContent="flex-end">
+				<Grid
+					item
+					container
+					style={{ marginTop: "5em" }}
+					justifyContent="flex-end"
+				>
 					<Grid item style={{ marginRight: 50 }}>
 						<FilterList
 							style={{ fontSize: "5em", cursor: "pointer" }}
@@ -211,15 +242,73 @@ export default function ProjectManager(){
 					</TableContainer>
 				</Grid>
 
-				<Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-          <Grid container justifyContent='center' >
-            <Grid item>
-              <Typography variant='h1' gutterBottom>
-                add a new project
-              </Typography>
-            </Grid>
-          </Grid>
-        </Dialog>
+				<Dialog
+					fullWidth
+					maxWidth="md"
+					open={dialogOpen}
+					onClose={() => setDialogOpen(false)}
+				>
+					<Grid container justifyContent="center">
+						<Grid item>
+							<Typography variant="h1" gutterBottom>
+								add a new project
+							</Typography>
+						</Grid>
+					</Grid>
+
+					<DialogContent>
+						<Grid container justifyContent="space-between">
+							<Grid item>
+								<Grid item container direction="column" sm>
+									<Grid item>
+										<TextField
+											label="name"
+											value={name}
+											id="name"
+											onChange={(e) => setName(e.target.value)}
+										/>
+									</Grid>
+								</Grid>
+							</Grid>
+
+							<Grid item>
+								<Grid
+									item
+									style={{ marginTop: 16 }}
+									container
+									direction="column"
+									sm
+								>
+									<Grid item>
+										<KeyboardDatePicker
+											format="MM/dd/yyyy"
+											value={date}
+											onChange={(newDate) => setDate(newDate)}
+										/>
+									</Grid>
+								</Grid>
+							</Grid>
+
+							<Grid item>
+								<Grid item container direction="column" sm>
+									<Grid item>
+										<TextField
+											label="total"
+											inputProps={{
+												startAdornment: (
+													<InputAdornment position="start">$</InputAdornment>
+												),
+											}}
+											value={total}
+											id="total"
+											onChange={(e) => setTotal(e.target.value)}
+										/>
+									</Grid>
+								</Grid>
+							</Grid>
+						</Grid>
+					</DialogContent>
+				</Dialog>
 			</Grid>
 		</MuiPickersUtilsProvider>
 	);

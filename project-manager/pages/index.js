@@ -1,40 +1,55 @@
-import React, { useState } from "react";
+import DateFnsUtils from "@date-io/date-fns";
 import {
-	Grid,
-	Typography,
-	useTheme,
-	makeStyles,
-	TextField,
-	InputAdornment,
-	Switch,
-	FormGroup,
-	FormControlLabel,
-	Table,
-	TableBody,
-	TableHead,
-	TableContainer,
-	TableRow,
-	TableCell,
-	Paper,
 	Dialog,
 	DialogContent,
-	RadioGroup,
+	FormControlLabel,
+	FormGroup,
+	Grid,
+	InputAdornment,
+	makeStyles,
+	Paper,
 	Radio,
+	RadioGroup,
+	Switch,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+	TextField,
+	Typography,
+	useTheme,
+	Select,
+	MenuItem,
+	Button,
 } from "@material-ui/core";
-import {
-	MuiPickersUtilsProvider,
-	KeyboardDatePicker,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
 import { Add, FilterList } from "@material-ui/icons";
+import {
+	KeyboardDatePicker,
+	MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import React, { useState } from "react";
+import { format } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
 	service: {
 		fontWeight: 300,
 	},
-	users:{
-		marginRight:0
-	}
+	users: {
+		marginRight: 0,
+		alignSelf: "flex-end",
+	},
+	button: {
+		color: "#fff",
+		backgroundColor: theme.palette.common.orange,
+		borderRadius: 50,
+		textTransform: "none",
+		padding: "0.4rem 0.7rem",
+		"&:hover": {
+			backgroundColor: theme.palette.secondary.light,
+		},
+	},
 }));
 
 const createData = (
@@ -72,59 +87,48 @@ export default function ProjectManager() {
 			"Android",
 			"23",
 			"$342"
-		),
-		createData(
-			"Charles",
-			"26-09-2002",
-			"Website",
-			"E-Commerce",
-			"N/A",
-			"Android",
-			"23",
-			"$342"
-		),
-		createData(
-			"Charles",
-			"26-09-2002",
-			"Website",
-			"E-Commerce",
-			"N/A",
-			"Android",
-			"23",
-			"$342"
-		),
-		createData(
-			"Charles",
-			"26-09-2002",
-			"Website",
-			"E-Commerce",
-			"N/A",
-			"Android",
-			"23",
-			"$342"
-		),
-		createData(
-			"Charles",
-			"26-09-2002",
-			"Website",
-			"E-Commerce",
-			"N/A",
-			"Android",
-			"23",
-			"$342"
-		),
+		)
 	]);
 	const [websiteChecked, setWebsiteChecked] = useState(false);
 	const [iOSChecked, setIOSChecked] = useState(false);
 	const [androidChecked, setAndroidChecked] = useState(false);
 	const [softwareChecked, setSoftwareChecked] = useState(false);
-	const [dialogOpen, setDialogOpen] = useState(false);
+	const [dialogOpen, setDialogOpen] = useState(true);
 	const [name, setName] = useState("");
 	const [date, setDate] = useState(new Date());
-	const [total, setTotal] = useState(12000);
+	const [total, setTotal] = useState("");
 	const [service, setService] = useState("");
 	const [complexity, setComplexity] = useState("");
 	const [users, setUsers] = useState("");
+	const [platforms, setPlatforms] = useState([]);
+	const [features, setFeatures] = useState([]);
+
+	const platformOptions = ["Web", "iOS", "Android"];
+	const featureOptions = [
+		"Photo/Video",
+		"GPS",
+		"File Transfer",
+		"Users/Authentication",
+		"Biometrics",
+		"Push Notification",
+	];
+
+	const addProject = () => {
+		setRows([
+			...rows,
+			createData(
+				name,
+				format(date, "MM/dd/yyyy"),
+				service,
+				features.join(", "),
+				complexity,
+				platforms.join(", "),
+				users,
+				total,
+			),
+		]);
+		setDialogOpen(false);
+	};
 
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -259,6 +263,7 @@ export default function ProjectManager() {
 					maxWidth="md"
 					open={dialogOpen}
 					onClose={() => setDialogOpen(false)}
+					style={{ marginTop: "5em" }}
 				>
 					<Grid container justifyContent="center">
 						<Grid item>
@@ -301,21 +306,45 @@ export default function ProjectManager() {
 													classes={{ label: classes.service }}
 													variant="Website"
 													label="Website"
+													value="Website"
 													control={<Radio />}
 												/>
 												<FormControlLabel
 													classes={{ label: classes.service }}
 													variant="Mobile App"
 													label="Mobile App"
+													value="Mobile App"
 													control={<Radio />}
 												/>
 												<FormControlLabel
 													classes={{ label: classes.service }}
 													variant="Custom Software"
 													label="Custom Software"
+													value="Custom Software"
 													control={<Radio />}
 												/>
 											</RadioGroup>
+										</Grid>
+										<Grid item style={{ marginTop: "5em" }}>
+											<Select
+												labelId="platforms"
+												id="platforms"
+												multiple
+												value={platforms}
+												onChange={(e) => setPlatforms(e.target.value)}
+												displayEmpty
+												renderValue={
+													platforms.length > 0 ? undefined : () => "Platforms"
+												}
+												menuProps={{ style: { zIndex: 1302 } }}
+												style={{ width: "12em" }}
+											>
+												{platformOptions.map((option) => (
+													<MenuItem key={option} value={option}>
+														{option}
+													</MenuItem>
+												))}
+											</Select>
 										</Grid>
 									</Grid>
 								</Grid>
@@ -358,18 +387,21 @@ export default function ProjectManager() {
 														classes={{ label: classes.service }}
 														variant="Low"
 														label="Low"
+														value="Low"
 														control={<Radio />}
 													/>
 													<FormControlLabel
 														classes={{ label: classes.service }}
 														variant="Medium"
 														label="Medium"
+														value="Medium"
 														control={<Radio />}
 													/>
 													<FormControlLabel
 														classes={{ label: classes.service }}
 														variant="High"
 														label="High"
+														value="High"
 														control={<Radio />}
 													/>
 												</RadioGroup>
@@ -379,7 +411,7 @@ export default function ProjectManager() {
 								</Grid>
 							</Grid>
 
-							<Grid item>
+							<Grid item style={{ alignSelf: "flex-end" }}>
 								<Grid
 									item
 									container
@@ -418,31 +450,85 @@ export default function ProjectManager() {
 													onChange={(e) => setUsers(e.target.value)}
 												>
 													<FormControlLabel
-														classes={{ label: classes.service,root:classes.users }}
+														classes={{
+															label: classes.service,
+															root: classes.users,
+														}}
 														variant="0-10"
 														label="0-10"
+														value="1-10"
 														control={<Radio />}
 													/>
 													<FormControlLabel
-														classes={{ label: classes.service,root:classes.users }}
+														classes={{
+															label: classes.service,
+															root: classes.users,
+														}}
 														variant="11-100"
 														label="11-100"
+														value="11-100"
 														control={<Radio />}
 													/>
 													<FormControlLabel
-														classes={{ label: classes.service,root:classes.users }}
+														classes={{
+															label: classes.service,
+															root: classes.users,
+														}}
 														variant="101-1000"
 														label="101-1000"
+														value="101-1000"
 														control={<Radio />}
 													/>
 												</RadioGroup>
 											</Grid>
 										</Grid>
 									</Grid>
+									<Grid item style={{ marginTop: "5em" }}>
+										<Select
+											labelId="features"
+											id="features"
+											multiple
+											value={features}
+											onChange={(e) => setFeatures(e.target.value)}
+											displayEmpty
+											renderValue={
+												features.length > 0 ? undefined : () => "Features"
+											}
+											menuProps={{ style: { zIndex: 1302 } }}
+											style={{ width: "12em" }}
+										>
+											{featureOptions.map((option) => (
+												<MenuItem key={option} value={option}>
+													{option}
+												</MenuItem>
+											))}
+										</Select>
+									</Grid>
 								</Grid>
 							</Grid>
 						</Grid>
 					</DialogContent>
+					<Grid container justifyContent="center" style={{ marginTop: "3em" }}>
+						<Grid item>
+							<Button
+								onClick={() => setDialogOpen(false)}
+								color="primary"
+								style={{ fontWeight: 300 }}
+							>
+								Cancel
+							</Button>
+						</Grid>
+						<Grid item>
+							<Button
+								color="primary"
+								variant="contained"
+								className={classes.button}
+								onClick={addProject}
+							>
+								Add Project
+							</Button>
+						</Grid>
+					</Grid>
 				</Dialog>
 			</Grid>
 		</MuiPickersUtilsProvider>

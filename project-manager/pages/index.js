@@ -87,7 +87,7 @@ export default function ProjectManager() {
 			"Android",
 			"23",
 			"$342"
-		)
+		),
 	]);
 	const [websiteChecked, setWebsiteChecked] = useState(false);
 	const [iOSChecked, setIOSChecked] = useState(false);
@@ -104,7 +104,7 @@ export default function ProjectManager() {
 	const [features, setFeatures] = useState([]);
 
 	const platformOptions = ["Web", "iOS", "Android"];
-	const featureOptions = [
+	let featureOptions = [
 		"Photo/Video",
 		"GPS",
 		"File Transfer",
@@ -112,6 +112,7 @@ export default function ProjectManager() {
 		"Biometrics",
 		"Push Notification",
 	];
+	let websiteOptions = ["Basic", "Interactive", "E-Commerce"];
 
 	const addProject = () => {
 		setRows([
@@ -121,21 +122,21 @@ export default function ProjectManager() {
 				format(date, "MM/dd/yyyy"),
 				service,
 				features.join(", "),
-				complexity,
-				platforms.join(", "),
-				users,
-				total,
+				service === "Website" ? "N/A" : complexity,
+				service === "Website" ? "N/A" : platforms.join(", "),
+				service === "Website" ? "N/A" : users,
+				`$${total}`
 			),
 		]);
 		setDialogOpen(false);
-		setName("")
-		setDate(new Date())
-		setTotal("")
-		setService("")
-		setComplexity("")
-		setUsers("")
-		setPlatforms([])
-		setFeatures([])
+		setName("");
+		setDate(new Date());
+		setTotal("");
+		setService("");
+		setComplexity("");
+		setUsers("");
+		setPlatforms([]);
+		setFeatures([]);
 	};
 
 	return (
@@ -308,7 +309,10 @@ export default function ProjectManager() {
 												aria-label="service"
 												name="service"
 												value={service}
-												onChange={(e) => setService(e.target.value)}
+												onChange={(e) => {
+													setService(e.target.value);
+													setFeatures([]);
+												}}
 											>
 												<FormControlLabel
 													classes={{ label: classes.service }}
@@ -339,6 +343,7 @@ export default function ProjectManager() {
 												id="platforms"
 												multiple
 												value={platforms}
+												disabled={service === "Website"}
 												onChange={(e) => setPlatforms(e.target.value)}
 												displayEmpty
 												renderValue={
@@ -397,6 +402,7 @@ export default function ProjectManager() {
 														label="Low"
 														value="Low"
 														control={<Radio />}
+														disabled={service === "Website"}
 													/>
 													<FormControlLabel
 														classes={{ label: classes.service }}
@@ -404,6 +410,7 @@ export default function ProjectManager() {
 														label="Medium"
 														value="Medium"
 														control={<Radio />}
+														disabled={service === "Website"}
 													/>
 													<FormControlLabel
 														classes={{ label: classes.service }}
@@ -411,6 +418,7 @@ export default function ProjectManager() {
 														label="High"
 														value="High"
 														control={<Radio />}
+														disabled={service === "Website"}
 													/>
 												</RadioGroup>
 											</Grid>
@@ -462,6 +470,7 @@ export default function ProjectManager() {
 															label: classes.service,
 															root: classes.users,
 														}}
+														disabled={service === "Website"}
 														variant="0-10"
 														label="0-10"
 														value="1-10"
@@ -472,6 +481,7 @@ export default function ProjectManager() {
 															label: classes.service,
 															root: classes.users,
 														}}
+														disabled={service === "Website"}
 														variant="11-100"
 														label="11-100"
 														value="11-100"
@@ -482,6 +492,7 @@ export default function ProjectManager() {
 															label: classes.service,
 															root: classes.users,
 														}}
+														disabled={service === "Website"}
 														variant="101-1000"
 														label="101-1000"
 														value="101-1000"
@@ -505,6 +516,9 @@ export default function ProjectManager() {
 											menuProps={{ style: { zIndex: 1302 } }}
 											style={{ width: "12em" }}
 										>
+											{service === "Website"
+												? (featureOptions = websiteOptions)
+												: null}
 											{featureOptions.map((option) => (
 												<MenuItem key={option} value={option}>
 													{option}

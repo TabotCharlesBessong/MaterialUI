@@ -1,36 +1,24 @@
 import DateFnsUtils from "@date-io/date-fns";
 import {
-	Dialog,
+	Button, Dialog,
 	DialogContent,
 	FormControlLabel,
 	FormGroup,
 	Grid,
 	InputAdornment,
-	makeStyles,
-	Paper,
-	Radio,
-	RadioGroup,
-	Switch,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	TextField,
+	makeStyles, MenuItem, Radio,
+	RadioGroup, Select, Switch, TextField,
 	Typography,
-	useTheme,
-	Select,
-	MenuItem,
-	Button,
+	useTheme
 } from "@material-ui/core";
 import { Add, FilterList } from "@material-ui/icons";
 import {
 	KeyboardDatePicker,
-	MuiPickersUtilsProvider,
+	MuiPickersUtilsProvider
 } from "@material-ui/pickers";
-import React, { useState } from "react";
 import { format } from "date-fns";
+import React, { useState } from "react";
+import EnhancedTable from '../ui/EnhancedTable';
 
 const useStyles = makeStyles((theme) => ({
 	service: {
@@ -107,7 +95,7 @@ export default function ProjectManager() {
 	const [iOSChecked, setIOSChecked] = useState(false);
 	const [androidChecked, setAndroidChecked] = useState(false);
 	const [softwareChecked, setSoftwareChecked] = useState(false);
-	const [dialogOpen, setDialogOpen] = useState(true);
+	const [dialogOpen, setDialogOpen] = useState(false);
 	const [name, setName] = useState("");
 	const [date, setDate] = useState(new Date());
 	const [total, setTotal] = useState("");
@@ -117,6 +105,7 @@ export default function ProjectManager() {
 	const [platforms, setPlatforms] = useState([]);
 	const [features, setFeatures] = useState([]);
 	const [search, setSearch] = useState("");
+	const [page, setPage] = useState(0);
 
 	const platformOptions = ["Web", "iOS", "Android"];
 	let featureOptions = [
@@ -138,7 +127,7 @@ export default function ProjectManager() {
 				service,
 				features.join(", "),
 				service === "Website" ? "N/A" : complexity,
-				service === "Website" ? "N/A" : platforms.join(", "),
+				service === "Website" ? "Web" : platforms.join(", "),
 				service === "Website" ? "N/A" : users,
 				`$${total}`,
 				true
@@ -175,12 +164,13 @@ export default function ProjectManager() {
 				: (newRows[index].search = false)
 		);
 		setRows(newRows)
+		setPage(0)
 	};
 
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<Grid container direction="column">
-				<Grid item style={{ marginTop: "7em", marginLeft: "5em" }}>
+				<Grid item style={{ marginTop: "2em", marginLeft: "5em" }}>
 					<Typography variant="h1">Project Manager</Typography>
 				</Grid>
 				<Grid item>
@@ -259,52 +249,8 @@ export default function ProjectManager() {
 					</FormGroup>
 				</Grid>
 
-				<Grid
-					item
-					container
-					style={{ marginTop: "5em" }}
-					justifyContent="flex-end"
-				>
-					<Grid item style={{ marginRight: 50 }}>
-						<FilterList
-							style={{ fontSize: "5em", cursor: "pointer" }}
-							color="secondary"
-						/>
-					</Grid>
-				</Grid>
-				<Grid item style={{ marginTop: "5em", marginBottom: "15em" }}>
-					<TableContainer component={Paper} elevation={0}>
-						<Table>
-							<TableHead>
-								<TableRow>
-									<TableCell align="center">Name</TableCell>
-									<TableCell align="center">Date</TableCell>
-									<TableCell align="center">Service</TableCell>
-									<TableCell align="center">Features</TableCell>
-									<TableCell align="center">Complexity</TableCell>
-									<TableCell align="center">Platforms</TableCell>
-									<TableCell align="center">Users</TableCell>
-									<TableCell align="center">Total</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{rows.filter(row => row.search === true).map((row, index) => (
-									<TableRow key={index}>
-										<TableCell align="center">{row.name}</TableCell>
-										<TableCell align="center">{row.date}</TableCell>
-										<TableCell align="center">{row.service}</TableCell>
-										<TableCell align="center" style={{ maxWidth: "5em" }}>
-											{row.features}
-										</TableCell>
-										<TableCell align="center">{row.complexity}</TableCell>
-										<TableCell align="center">{row.platforms}</TableCell>
-										<TableCell align="center">{row.users}</TableCell>
-										<TableCell align="center">{row.total}</TableCell>
-									</TableRow>
-								))}
-							</TableBody>
-						</Table>
-					</TableContainer>
+				<Grid item style={{ marginTop: "2em", marginBottom: "10em" }}>
+					<EnhancedTable page={page} setPage={setPage} rows={rows} />
 				</Grid>
 
 				<Dialog

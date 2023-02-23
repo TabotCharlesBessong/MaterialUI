@@ -60,7 +60,8 @@ const createData = (
 	complexity,
 	platforms,
 	users,
-	total
+	total,
+	search
 ) => {
 	return {
 		name,
@@ -71,6 +72,7 @@ const createData = (
 		platforms,
 		users,
 		total,
+		search,
 	};
 };
 
@@ -86,7 +88,19 @@ export default function ProjectManager() {
 			"N/A",
 			"Android",
 			"23",
-			"$342"
+			"$342",
+			true
+		),
+		createData(
+			"Tabot",
+			"26-09-2002",
+			"Custom Software",
+			"GPS",
+			"Low",
+			"Android",
+			"132",
+			"$342",
+			true
 		),
 	]);
 	const [websiteChecked, setWebsiteChecked] = useState(false);
@@ -102,6 +116,7 @@ export default function ProjectManager() {
 	const [users, setUsers] = useState("");
 	const [platforms, setPlatforms] = useState([]);
 	const [features, setFeatures] = useState([]);
+	const [search, setSearch] = useState("");
 
 	const platformOptions = ["Web", "iOS", "Android"];
 	let featureOptions = [
@@ -125,7 +140,8 @@ export default function ProjectManager() {
 				service === "Website" ? "N/A" : complexity,
 				service === "Website" ? "N/A" : platforms.join(", "),
 				service === "Website" ? "N/A" : users,
-				`$${total}`
+				`$${total}`,
+				true
 			),
 		]);
 		setDialogOpen(false);
@@ -139,14 +155,38 @@ export default function ProjectManager() {
 		setFeatures([]);
 	};
 
+	const handleSearch = (e) => {
+		setSearch(e.target.value);
+		const rowData = rows.map((row) =>
+			Object.values(row).filter((option) => option !== true && option !== false)
+		);
+
+		const matches = rowData.map((row) =>
+			row.map((option) =>
+				option.toLowerCase().includes(e.target.value.toLowerCase())
+			)
+		);
+		console.log(matches);
+
+		const newRows = [...rows];
+		matches.map((row, index) =>
+			row.includes(true)
+				? (newRows[index].search = true)
+				: (newRows[index].search = false)
+		);
+		setRows(newRows)
+	};
+
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<Grid container direction="column">
-				<Grid item style={{ marginTop: "2em", marginLeft: "5em" }}>
+				<Grid item style={{ marginTop: "7em", marginLeft: "5em" }}>
 					<Typography variant="h1">Project Manager</Typography>
 				</Grid>
 				<Grid item>
 					<TextField
+						value={search}
+						onChange={handleSearch}
 						placeholder="search project detail or create a new entry"
 						style={{ width: "35em", marginLeft: "5em" }}
 						InputProps={{
@@ -248,7 +288,7 @@ export default function ProjectManager() {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{rows.map((row, index) => (
+								{rows.filter(row => row.search === true).map((row, index) => (
 									<TableRow key={index}>
 										<TableCell align="center">{row.name}</TableCell>
 										<TableCell align="center">{row.date}</TableCell>

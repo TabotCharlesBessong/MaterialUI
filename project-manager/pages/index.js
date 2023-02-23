@@ -250,7 +250,7 @@ export default function ProjectManager() {
 				</Grid>
 
 				<Grid item style={{ marginTop: "2em", marginBottom: "10em" }}>
-					<EnhancedTable page={page} setPage={setPage} rows={rows} />
+					<EnhancedTable page={page} setPage={setPage} rows={rows} setRows={setRows} />
 				</Grid>
 
 				<Dialog

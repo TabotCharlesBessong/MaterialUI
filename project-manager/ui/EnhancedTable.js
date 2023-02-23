@@ -23,7 +23,6 @@ import {
 } from "@material-ui/core";
 import { Delete, FilterList } from "@material-ui/icons";
 
-
 function descendingComparator(a, b, orderBy) {
 	if (b[orderBy] < a[orderBy]) {
 		return -1;
@@ -96,7 +95,7 @@ function EnhancedTableHead(props) {
 						sortDirection={orderBy === headCell.id ? order : false}
 					>
 						<TableSortLabel
-						  hideSortIcon
+							hideSortIcon
 							active={orderBy === headCell.id}
 							direction={orderBy === headCell.id ? order : "asc"}
 							onClick={createSortHandler(headCell.id)}
@@ -106,7 +105,9 @@ function EnhancedTableHead(props) {
 								<span className={classes.visuallyHidden}>
 									{order === "desc" ? "sorted descending" : "sorted ascending"}
 								</span>
-							) : <Typography>{null}</Typography>}
+							) : (
+								<Typography>{null}</Typography>
+							)}
 						</TableSortLabel>
 					</TableCell>
 				))}
@@ -149,6 +150,16 @@ const EnhancedTableToolbar = (props) => {
 	const classes = useToolbarStyles();
 	const { numSelected } = props;
 
+	const handleDelete = () => {
+		const newRows = [...props.rows];
+		const selectedRows = newRows.filter((row) =>
+			props.selected.includes(row.name)
+		);
+		selectedRows.map(row => row.search = false)
+		// console.log(newRows);
+		props.setRows(newRows)
+	};
+
 	return (
 		<Toolbar
 			className={clsx(classes.root, {
@@ -176,8 +187,8 @@ const EnhancedTableToolbar = (props) => {
 
 			{numSelected > 0 ? (
 				<Tooltip title="Delete">
-					<IconButton aria-label="delete">
-						<Delete style={{ fontSize: 30 }} color="secondary" />
+					<IconButton onClick={handleDelete} aria-label="delete">
+						<Delete style={{ fontSize: 30 }} color="primary" />
 					</IconButton>
 				</Tooltip>
 			) : (
@@ -219,7 +230,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const EnhancedTable = ({rows,page,setPage}) => {
+const EnhancedTable = ({ rows,setRows, page, setPage }) => {
 	const classes = useStyles();
 	const [order, setOrder] = React.useState("asc");
 	const [orderBy, setOrderBy] = React.useState("name");
@@ -275,7 +286,13 @@ const EnhancedTable = ({rows,page,setPage}) => {
 	return (
 		<div className={classes.root}>
 			<Paper elevation={0} className={classes.paper}>
-				<EnhancedTableToolbar numSelected={selected.length} />
+				<EnhancedTableToolbar
+					rows={rows}
+					setRows={setRows}
+					selected={selected}
+					setSelected={setSelected}
+					numSelected={selected.length}
+				/>
 				<TableContainer>
 					<Table
 						className={classes.table}
@@ -293,7 +310,10 @@ const EnhancedTable = ({rows,page,setPage}) => {
 							rowCount={rows.length}
 						/>
 						<TableBody>
-							{stableSort(rows.filter(row => row.search), getComparator(order, orderBy))
+							{stableSort(
+								rows.filter((row) => row.search),
+								getComparator(order, orderBy)
+							)
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 								.map((row, index) => {
 									const isItemSelected = isSelected(row.name);
@@ -326,7 +346,9 @@ const EnhancedTable = ({rows,page,setPage}) => {
 											</TableCell>
 											<TableCell align="center">{row.date}</TableCell>
 											<TableCell align="center">{row.service}</TableCell>
-											<TableCell style={{maxWidth:'5em'}} align="center">{row.features}</TableCell>
+											<TableCell style={{ maxWidth: "5em" }} align="center">
+												{row.features}
+											</TableCell>
 											<TableCell align="center">{row.complexity}</TableCell>
 											<TableCell align="center">{row.platforms}</TableCell>
 											<TableCell align="center">{row.users}</TableCell>
@@ -334,14 +356,13 @@ const EnhancedTable = ({rows,page,setPage}) => {
 										</TableRow>
 									);
 								})}
-				
 						</TableBody>
 					</Table>
 				</TableContainer>
 				<TablePagination
 					rowsPerPageOptions={[5, 10, 25]}
 					component="div"
-					count={rows.filter(row => row.search).length}
+					count={rows.filter((row) => row.search).length}
 					rowsPerPage={rowsPerPage}
 					page={page}
 					onPageChange={handleChangePage}
@@ -350,6 +371,6 @@ const EnhancedTable = ({rows,page,setPage}) => {
 			</Paper>
 		</div>
 	);
-}
+};
 
-export default EnhancedTable
+export default EnhancedTable;

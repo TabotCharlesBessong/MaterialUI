@@ -1,24 +1,30 @@
 import DateFnsUtils from "@date-io/date-fns";
 import {
-	Button, Dialog,
+	Button,
+	Dialog,
 	DialogContent,
 	FormControlLabel,
 	FormGroup,
 	Grid,
 	InputAdornment,
-	makeStyles, MenuItem, Radio,
-	RadioGroup, Select, Switch, TextField,
+	makeStyles,
+	MenuItem,
+	Radio,
+	RadioGroup,
+	Select,
+	Switch,
+	TextField,
 	Typography,
-	useTheme
+	useTheme,
 } from "@material-ui/core";
 import { Add, FilterList } from "@material-ui/icons";
 import {
 	KeyboardDatePicker,
-	MuiPickersUtilsProvider
+	MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import { format } from "date-fns";
 import React, { useState } from "react";
-import EnhancedTable from '../ui/EnhancedTable';
+import EnhancedTable from "../ui/EnhancedTable";
 
 const useStyles = makeStyles((theme) => ({
 	service: {
@@ -163,8 +169,8 @@ export default function ProjectManager() {
 				? (newRows[index].search = true)
 				: (newRows[index].search = false)
 		);
-		setRows(newRows)
-		setPage(0)
+		setRows(newRows);
+		setPage(0);
 	};
 
 	return (
@@ -250,7 +256,19 @@ export default function ProjectManager() {
 				</Grid>
 
 				<Grid item style={{ marginTop: "2em", marginBottom: "10em" }}>
-					<EnhancedTable page={page} setPage={setPage} rows={rows} setRows={setRows} />
+					<EnhancedTable
+						websiteChecked={websiteChecked}
+						androidChecked={androidChecked}
+						setWebsiteChecked={setWebsiteChecked}
+						setAndroidChecked={setAndroidChecked}
+						iOSChecked={iOSChecked}
+						setIOSChecked={setIOSChecked}
+						softwareChecked={softwareChecked}
+						page={page}
+						setPage={setPage}
+						rows={rows}
+						setRows={setRows}
+					/>
 				</Grid>
 
 				<Dialog

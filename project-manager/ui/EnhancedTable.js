@@ -276,7 +276,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const EnhancedTable = ({ rows, setRows, page, setPage }) => {
+
+
+const EnhancedTable = ({ rows, setRows, page, setPage,androidChecked,websiteChecked,iOSChecked,softwareChecked }) => {
 	const classes = useStyles();
 	const [order, setOrder] = React.useState("asc");
 	const [orderBy, setOrderBy] = React.useState("name");
@@ -327,6 +329,27 @@ const EnhancedTable = ({ rows, setRows, page, setPage }) => {
 		setPage(0);
 	};
 
+	const switchFilters = () => {
+		const websites = rows.filter(row => websiteChecked ? row.service === 'Website' : null)
+		const software = rows.filter(row => softwareChecked ? row.service === 'Custom Software' : null)
+		const android = rows.filter(row => androidChecked ? row.platforms.includes('Android') : null)
+		const iOS = rows.filter(row => iOSChecked ? row.platforms.includes('iOS') : null)
+		// const websites = rows.filter((row) =>
+		// 	websiteChecked ? row.platforms === "Android" : null
+		// );
+		// console.log([websites,software,android,iOS])
+		if(!websiteChecked && !iOSChecked && !softwareChecked && !androidChecked){
+			return rows
+		}else{
+			let newRows = websites.concat(iOS.filter(item => websites.indexOf(item) < 0))
+			let newRows2 = newRows.concat(android.filter(item => newRows.indexOf(item) < 0))
+			let newRows3 = newRows2.concat(software.filter(item => newRows2.indexOf(item) < 0))
+
+			// console.log(newRows3)
+			return newRows3
+		}
+	}
+
 	const isSelected = (name) => selected.indexOf(name) !== -1;
 
 	return (
@@ -357,7 +380,7 @@ const EnhancedTable = ({ rows, setRows, page, setPage }) => {
 						/>
 						<TableBody>
 							{stableSort(
-								rows.filter((row) => row.search),
+								switchFilters().filter((row) => row.search),
 								getComparator(order, orderBy)
 							)
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)

@@ -170,7 +170,7 @@ export default function ProjectManager() {
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<Grid container direction="column">
-				<Grid item style={{ marginTop: "2em", marginLeft: "5em" }}>
+				<Grid item style={{ marginTop: "6em", marginLeft: "5em" }}>
 					<Typography variant="h1">Project Manager</Typography>
 				</Grid>
 				<Grid item>

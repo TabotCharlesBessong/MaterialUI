@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import {
@@ -20,6 +20,8 @@ import {
 	Tooltip,
 	FormControlLabel,
 	Switch,
+	Snackbar,
+	Button,
 } from "@material-ui/core";
 import { Delete, FilterList } from "@material-ui/icons";
 
@@ -149,15 +151,34 @@ const useToolbarStyles = makeStyles((theme) => ({
 const EnhancedTableToolbar = (props) => {
 	const classes = useToolbarStyles();
 	const { numSelected } = props;
+	const [undo, setUndo] = useState([]);
+	const [alert, setAlert] = useState({
+		open: false,
+		backgroundColor: "#FF3232",
+		message: "row deleted",
+	});
 
 	const handleDelete = () => {
 		const newRows = [...props.rows];
 		const selectedRows = newRows.filter((row) =>
 			props.selected.includes(row.name)
 		);
-		selectedRows.map(row => row.search = false)
+		selectedRows.map((row) => (row.search = false));
 		// console.log(newRows);
-		props.setRows(newRows)
+		props.setRows(newRows);
+		setUndo(selectedRows);
+		props.setSelected([]);
+		setAlert({ ...alert, open: true });
+	};
+
+	const handleUndo = () => {
+		// console.log(undo);
+		setAlert({ ...alert, open: false });
+		const newRows = [...props.rows];
+		const redo = [...undo];
+		redo.map((row) => (row.search = true));
+		Array.prototype.push.apply(newRows, ...redo);
+		props.setRows(newRows);
 	};
 
 	return (
@@ -198,6 +219,31 @@ const EnhancedTableToolbar = (props) => {
 					</IconButton>
 				</Tooltip>
 			)}
+			<Snackbar
+				open={alert.open}
+				ContentProps={{
+					style: {
+						backgroundColor: alert.backgroundColor,
+					},
+				}}
+				anchorOrigin={{ vertical: "top", horizontal: "center" }}
+				message={alert.message}
+				// autoHideDuration={4000}
+				onClose={(event,reason) => {
+					if(reason === 'clickaway'){
+						setAlert({ ...alert, open: false });
+						const newRows = [...props.rows]
+						const names = [...undo.map(row => row.name)]
+						props.setRows(newRows.filter(row => !names.includes(row.name)))
+
+					}
+				}}
+				action={
+					<Button onClick={handleUndo} style={{ color: "#fff" }}>
+						undo
+					</Button>
+				}
+			/>
 		</Toolbar>
 	);
 };
@@ -230,7 +276,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const EnhancedTable = ({ rows,setRows, page, setPage }) => {
+const EnhancedTable = ({ rows, setRows, page, setPage }) => {
 	const classes = useStyles();
 	const [order, setOrder] = React.useState("asc");
 	const [orderBy, setOrderBy] = React.useState("name");

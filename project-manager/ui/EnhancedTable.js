@@ -22,6 +22,9 @@ import {
 	Switch,
 	Snackbar,
 	Button,
+	Menu,
+	MenuItem,
+	TextField
 } from "@material-ui/core";
 import { Delete, FilterList } from "@material-ui/icons";
 
@@ -146,6 +149,14 @@ const useToolbarStyles = makeStyles((theme) => ({
 	title: {
 		flex: "1 1 100%",
 	},
+	menu:{
+		'&:hover':{
+			backgroundColor:'#fff'
+		},
+		'&.Mui-focusVisible':{
+			backgroundColor:'#fff'
+		}
+	}
 }));
 
 const EnhancedTableToolbar = (props) => {
@@ -157,6 +168,8 @@ const EnhancedTableToolbar = (props) => {
 		backgroundColor: "#FF3232",
 		message: "row deleted",
 	});
+	const [anchorEl, setAnchorEl] = useState(null)
+	const [openMenu, setOpenMenu] = useState(false)
 
 	const handleDelete = () => {
 		const newRows = [...props.rows];
@@ -170,6 +183,16 @@ const EnhancedTableToolbar = (props) => {
 		props.setSelected([]);
 		setAlert({ ...alert, open: true });
 	};
+
+	const handleClick = (e) => {
+		setAnchorEl(e.target.value)
+		setOpenMenu(true)
+	}
+
+	const handleClose = (e) => {
+    setAnchorEl(null)
+		setOpenMenu(false) 
+	}
 
 	const handleUndo = () => {
 		// console.log(undo);
@@ -214,7 +237,7 @@ const EnhancedTableToolbar = (props) => {
 				</Tooltip>
 			) : (
 				<Tooltip title="Filter list">
-					<IconButton aria-label="filter list">
+					<IconButton onClick={handleClick} aria-label="filter list">
 						<FilterList style={{ fontSize: 50 }} color="secondary" />
 					</IconButton>
 				</Tooltip>
@@ -229,13 +252,12 @@ const EnhancedTableToolbar = (props) => {
 				anchorOrigin={{ vertical: "top", horizontal: "center" }}
 				message={alert.message}
 				// autoHideDuration={4000}
-				onClose={(event,reason) => {
-					if(reason === 'clickaway'){
+				onClose={(event, reason) => {
+					if (reason === "clickaway") {
 						setAlert({ ...alert, open: false });
-						const newRows = [...props.rows]
-						const names = [...undo.map(row => row.name)]
-						props.setRows(newRows.filter(row => !names.includes(row.name)))
-
+						const newRows = [...props.rows];
+						const names = [...undo.map((row) => row.name)];
+						props.setRows(newRows.filter((row) => !names.includes(row.name)));
 					}
 				}}
 				action={
@@ -244,6 +266,20 @@ const EnhancedTableToolbar = (props) => {
 					</Button>
 				}
 			/>
+
+			<Menu
+				id="simple-menu"
+				anchorEl={anchorEl}
+				open={openMenu}
+				onClick={handleClose}
+				style={{ zIndex: 1302 }}
+				elevation={0}
+				keepMounted
+			>
+				<MenuItem classes={{root:classes.menu}} >
+					<TextField/>
+				</MenuItem>
+			</Menu>
 		</Toolbar>
 	);
 };

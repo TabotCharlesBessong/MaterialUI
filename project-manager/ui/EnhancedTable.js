@@ -24,7 +24,10 @@ import {
 	Button,
 	Menu,
 	MenuItem,
-	TextField
+	TextField,
+	InputAdornment,
+	Grid,
+	Chip,
 } from "@material-ui/core";
 import { Delete, FilterList } from "@material-ui/icons";
 
@@ -54,6 +57,16 @@ function stableSort(array, comparator) {
 	return stabilizedThis.map((el) => el[0]);
 }
 
+function desc(a, b, orderBy) {
+	if (b[orderBy] < a[orderBy]) {
+		return -1;
+	}
+	if (b[orderBy] > a[orderBy]) {
+		return 1;
+	}
+	return 0;
+}
+
 const headCells = [
 	{
 		id: "name",
@@ -67,6 +80,12 @@ const headCells = [
 	{ id: "users", label: "Users" },
 	{ id: "total", label: "Total" },
 ];
+
+function getSorting(order, orderBy) {
+	return order === "desc"
+		? (a, b) => desc(a, b, orderBy)
+		: (a, b) => -desc(a, b, orderBy);
+}
 
 function EnhancedTableHead(props) {
 	const {
@@ -149,14 +168,14 @@ const useToolbarStyles = makeStyles((theme) => ({
 	title: {
 		flex: "1 1 100%",
 	},
-	menu:{
-		'&:hover':{
-			backgroundColor:'#fff'
+	menu: {
+		"&:hover": {
+			backgroundColor: "#fff",
 		},
-		'&.Mui-focusVisible':{
-			backgroundColor:'#fff'
-		}
-	}
+		"&.Mui-focusVisible": {
+			backgroundColor: "#fff",
+		},
+	},
 }));
 
 const EnhancedTableToolbar = (props) => {
@@ -168,8 +187,8 @@ const EnhancedTableToolbar = (props) => {
 		backgroundColor: "#FF3232",
 		message: "row deleted",
 	});
-	const [anchorEl, setAnchorEl] = useState(null)
-	const [openMenu, setOpenMenu] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null);
+	const [openMenu, setOpenMenu] = useState(false);
 
 	const handleDelete = () => {
 		const newRows = [...props.rows];
@@ -185,14 +204,14 @@ const EnhancedTableToolbar = (props) => {
 	};
 
 	const handleClick = (e) => {
-		setAnchorEl(e.target.value)
-		setOpenMenu(true)
-	}
+		setAnchorEl(e.target.value);
+		setOpenMenu(true);
+	};
 
 	const handleClose = (e) => {
-    setAnchorEl(null)
-		setOpenMenu(false) 
-	}
+		setAnchorEl(null);
+		setOpenMenu(false);
+	};
 
 	const handleUndo = () => {
 		// console.log(undo);
@@ -202,6 +221,44 @@ const EnhancedTableToolbar = (props) => {
 		redo.map((row) => (row.search = true));
 		Array.prototype.push.apply(newRows, ...redo);
 		props.setRows(newRows);
+	};
+
+	const handleTotalFilter = (event) => {
+		props.setFilterPrice(event.target.value);
+
+		if (event.target.value !== "") {
+			const newRows = [...props.rows];
+			newRows.map((row) =>
+				eval(
+					`${event.target.value} ${
+						props.totalFilter === "=" ? "===" : props.totalFilter
+					} ${row.total.slice(1, row.total.length)}`
+				)
+					? (row.search = true)
+					: (row.search = false)
+			);
+			props.setRows(newRows);
+		} else {
+			const newRows = [...props.rows];
+			newRows.map((row) => (row.search = true));
+			props.setRows(newRows);
+		}
+	};
+
+	const filterChange = (operator) => {
+		if (props.filterPrice !== "") {
+			const newRows = [...props.rows];
+			newRows.map((row) =>
+				eval(
+					`${props.filterPrice} ${
+						operator === "=" ? "===" : operator
+					} ${row.total.slice(1, row.total.length)}`
+				)
+					? (row.search = true)
+					: (row.search = false)
+			);
+			props.setRows(newRows);
+		}
 	};
 
 	return (
@@ -276,8 +333,46 @@ const EnhancedTableToolbar = (props) => {
 				elevation={0}
 				keepMounted
 			>
-				<MenuItem classes={{root:classes.menu}} >
-					<TextField/>
+				<MenuItem classes={{ root: classes.menu }}>
+					<TextField
+						value={props.filterPrice}
+						onChange={handleTotalFilter}
+						placeholder="Enter a price to filter"
+						InputProps={{
+							type: "number",
+							startAdornment: (
+								<InputAdornment position="start">
+									<span className={classes.dollarSign}>$</span>
+								</InputAdornment>
+							),
+							endAdornment: (
+								<InputAdornment
+									onClick={() => {
+										props.setTotalFilter(
+											props.totalFilter === ">"
+												? "<"
+												: props.totalFilter === "<"
+												? "="
+												: ">"
+										);
+										filterChange(
+											props.totalFilter === ">"
+												? "<"
+												: props.totalFilter === "<"
+												? "="
+												: ">"
+										);
+									}}
+									position="end"
+									style={{ cursor: "pointer" }}
+								>
+									<span className={classes.totalFilter}>
+										{props.totalFilter}
+									</span>
+								</InputAdornment>
+							),
+						}}
+					/>
 				</MenuItem>
 			</Menu>
 		</Toolbar>
@@ -310,16 +405,30 @@ const useStyles = makeStyles((theme) => ({
 		top: 20,
 		width: 1,
 	},
+	chip: {
+		marginRight: "2em",
+		backgroundColor: theme.palette.common.blue,
+		color: "#fff",
+	},
 }));
 
-
-
-const EnhancedTable = ({ rows, setRows, page, setPage,androidChecked,websiteChecked,iOSChecked,softwareChecked }) => {
+const EnhancedTable = ({
+	rows,
+	setRows,
+	page,
+	setPage,
+	androidChecked,
+	websiteChecked,
+	iOSChecked,
+	softwareChecked,
+}) => {
 	const classes = useStyles();
 	const [order, setOrder] = React.useState("asc");
 	const [orderBy, setOrderBy] = React.useState("name");
 	const [selected, setSelected] = React.useState([]);
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
+	const [filterPrice, setFilterPrice] = useState("");
+	const [totalFilter, setTotalFilter] = useState(">");
 
 	const handleRequestSort = (event, property) => {
 		const isAsc = orderBy === property && order === "asc";
@@ -366,25 +475,56 @@ const EnhancedTable = ({ rows, setRows, page, setPage,androidChecked,websiteChec
 	};
 
 	const switchFilters = () => {
-		const websites = rows.filter(row => websiteChecked ? row.service === 'Website' : null)
-		const software = rows.filter(row => softwareChecked ? row.service === 'Custom Software' : null)
-		const android = rows.filter(row => androidChecked ? row.platforms.includes('Android') : null)
-		const iOS = rows.filter(row => iOSChecked ? row.platforms.includes('iOS') : null)
-		// const websites = rows.filter((row) =>
-		// 	websiteChecked ? row.platforms === "Android" : null
-		// );
-		// console.log([websites,software,android,iOS])
-		if(!websiteChecked && !iOSChecked && !softwareChecked && !androidChecked){
-			return rows
-		}else{
-			let newRows = websites.concat(iOS.filter(item => websites.indexOf(item) < 0))
-			let newRows2 = newRows.concat(android.filter(item => newRows.indexOf(item) < 0))
-			let newRows3 = newRows2.concat(software.filter(item => newRows2.indexOf(item) < 0))
+		const websites = rows.filter((row) =>
+			websiteChecked ? row.service === "Website" : null
+		);
+		const software = rows.filter((row) =>
+			softwareChecked ? row.service === "Custom Software" : null
+		);
+		const android = rows.filter((row) =>
+			androidChecked ? row.platforms.includes("Android") : null
+		);
+		const iOS = rows.filter((row) =>
+			iOSChecked ? row.platforms.includes("iOS") : null
+		);
+
+		if (!websiteChecked && !iOSChecked && !softwareChecked && !androidChecked) {
+			return rows;
+		} else {
+			let newRows = websites.concat(
+				iOS.filter((item) => websites.indexOf(item) < 0)
+			);
+			let newRows2 = newRows.concat(
+				android.filter((item) => newRows.indexOf(item) < 0)
+			);
+			let newRows3 = newRows2.concat(
+				software.filter((item) => newRows2.indexOf(item) < 0)
+			);
 
 			// console.log(newRows3)
-			return newRows3
+			return newRows3;
 		}
-	}
+	};
+
+	const priceFilters = (switchRows) => {
+		if (filterPrice !== "") {
+			const newRows = [...switchRows];
+			newRows.map((row) =>
+				eval(
+					`${filterPrice} ${
+						totalFilter === "=" ? "===" : totalFilter
+					} ${row.total.slice(1, row.total.length)}`
+				)
+					? row.search === false
+						? null
+						: (row.search = true)
+					: (row.search = false)
+			);
+			return newRows;
+		} else {
+			return switchRows;
+		}
+	};
 
 	const isSelected = (name) => selected.indexOf(name) !== -1;
 
@@ -397,6 +537,10 @@ const EnhancedTable = ({ rows, setRows, page, setPage,androidChecked,websiteChec
 					selected={selected}
 					setSelected={setSelected}
 					numSelected={selected.length}
+					filterPrice={filterPrice}
+					setFilterPrice={setFilterPrice}
+					totalFilter={totalFilter}
+					setTotalFilter={setTotalFilter}
 				/>
 				<TableContainer>
 					<Table
@@ -416,14 +560,13 @@ const EnhancedTable = ({ rows, setRows, page, setPage,androidChecked,websiteChec
 						/>
 						<TableBody>
 							{stableSort(
-								switchFilters().filter((row) => row.search),
-								getComparator(order, orderBy)
+								priceFilters(switchFilters()).filter((row) => row.search),
+								getSorting(order, orderBy)
 							)
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 								.map((row, index) => {
 									const isItemSelected = isSelected(row.name);
 									const labelId = `enhanced-table-checkbox-${index}`;
-
 									return (
 										<TableRow
 											hover
@@ -467,12 +610,36 @@ const EnhancedTable = ({ rows, setRows, page, setPage,androidChecked,websiteChec
 				<TablePagination
 					rowsPerPageOptions={[5, 10, 25]}
 					component="div"
-					count={rows.filter((row) => row.search).length}
+					count={
+						priceFilters(switchFilters()).filter((row) => row.search).length
+					}
 					rowsPerPage={rowsPerPage}
 					page={page}
 					onPageChange={handleChangePage}
 					onRowsPerPageChange={handleChangeRowsPerPage}
 				/>
+				<Grid container justifyContent="flex-end">
+					<Grid item>
+						{filterPrice !== "" ? (
+							<Chip
+								onDelete={() => {
+									setFilterPrice("");
+									const newRows = [...rows];
+									newRows.map((row) => (row.search = true));
+									props.setRows(newRows);
+								}}
+								className={classes.chip}
+								label={
+									totalFilter === ">"
+										? `Less than $${filterPrice}`
+										: totalFilter === "<"
+										? `Greater than $${filterPrice}`
+										: `Equal to $${filterPrice}`
+								}
+							/>
+						) : null}
+					</Grid>
+				</Grid>
 			</Paper>
 		</div>
 	);
